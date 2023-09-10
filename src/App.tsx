@@ -15,6 +15,7 @@ import { Route, Routes } from "react-router-dom";
 import {
   calculateCartTotal,
   dispatchUsers,
+  fetchCategories,
   fetchFoodData,
   fetchUserCartData,
   isAdmin,
@@ -23,19 +24,23 @@ import {
 import { AnimatePresence } from "framer-motion";
 import Contact from "./components/Contact";
 import { ToastContainer } from "react-toastify";
-import { useEffect } from "react";
 import { useStateValue } from "./context/StateProvider";
+import { useEffect } from "react";
 
 function App() {
-  const [{ showCart,showContactForm, user, foodItems, cartItems, adminMode }, dispatch] =
-    useStateValue();
-
   useEffect(() => {
+    fetchCategories(dispatch);
     fetchFoodData(dispatch);
     dispatchUsers(dispatch);
     user && fetchUserCartData(user, dispatch);
   }, []);
+  const [
+    { showCart, showContactForm, user, foodItems, cartItems, adminMode },
+    dispatch,
+  ] = useStateValue();
+  const [{ categories }] = useStateValue();
 
+  console.log("cate", categories);
   useEffect(() => {
     foodItems &&
       cartItems.length > 0 &&

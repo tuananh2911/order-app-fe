@@ -101,6 +101,28 @@ export const fetchFoodData = async (dispatch: any) => {
   }
 };
 
+export const fetchCategories = async (dispatch: any) => {
+  try {
+    const response = await fetch(
+      "https://64f7304d9d775408495341a3.mockapi.io/api/v1/categories"
+    );
+    console.log("response", response);
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    const data = await response.json();
+
+    dispatch({
+      type: "SET_CATEGORIES",
+      categories: data,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const getFoodyById = (menu: FoodItem[], fid: number) => {
   return menu.find((item: FoodItem) => item.id === fid);
 };
