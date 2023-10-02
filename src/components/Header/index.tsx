@@ -10,12 +10,20 @@ import { RiArrowDropDownLine } from "react-icons/ri";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { useStateValue } from "../../context/StateProvider";
+import { MdOutlineRestaurantMenu, MdShoppingBasket } from "react-icons/md";
 const Header = () => {
   //
   // const firebaseAuth = getAuth(app);
-  const [{ user }, dispatch] = useStateValue();
+  const [{ user, showCart, cartItems }, dispatch] = useStateValue();
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenMobileNav, setIsOpenMobileNav] = useState(false);
+
+  const handleToggleCart = () => {
+    dispatch({
+      type: "TOGGLE_CART",
+      showCart: !showCart,
+    });
+  };
 
   return (
     <header className="w-screen fixed z-50 bg-cardOverlay backdrop-blur-md md:p-3 md:px-4 lg:p-6 lg:px-16">
@@ -62,7 +70,7 @@ const Header = () => {
 
       {/* Mobile */}
       <motion.div
-        className="flex md:hidden w-full p-0 items-center justify-between"
+        className="flex md:hidden w-full p-0 items-center justify-between "
         initial={{ opacity: 0, x: 200 }}
         animate={{ opacity: 1, x: 0 }}
         exit={{ opacity: 0, x: 200 }}
@@ -70,7 +78,7 @@ const Header = () => {
         {isOpenMobileNav ? (
           <MobileNav isOpen={isOpenMobileNav} setIsOpen={setIsOpenMobileNav} />
         ) : (
-          <div className="p-5 flex items-center justify-between w-full">
+          <div className="p-2 flex items-center justify-evenly w-full">
             <motion.div
               whileTap={{ scale: 0.9 }}
               className=" flex items-center justify-center"
@@ -89,6 +97,24 @@ const Header = () => {
                 </p>
               </motion.div>
             </Link>
+            <motion.div
+              whileTap={{ scale: 0.9 }}
+              whileHover={{ scale: 1.1 }}
+              initial={{ opacity: 0, x: 200 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 200 }}
+              className="relative flex items-center justify-center text-textColor"
+              onClick={handleToggleCart}
+            >
+              <MdShoppingBasket className="text-3xl cursor-pointer" />
+              {cartItems && (
+                <div className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-cartNumBg flex items-center justify-center">
+                  <p className="text-sm text-white font-semibold">
+                    {cartItems.length}
+                  </p>
+                </div>
+              )}
+            </motion.div>
             {user ? (
               <div
                 className={`flex items-center gap-3 px-3 py-1 rounded-lg relative`}
