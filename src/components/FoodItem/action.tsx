@@ -1,12 +1,22 @@
 import React from "react";
 import { useStateValue } from "../../context/StateProvider";
 import { motion } from "framer-motion";
-import { addToCart, deleteFood } from "../../utils/functions";
+import { addToCart, deleteFood,  } from "../../utils/functions";
 import { MdAddShoppingCart, MdDeleteForever } from "react-icons/md";
 import { BiEditAlt } from "react-icons/bi";
 import { FoodItem } from "../../../types";
 const Action = ({ food, admin }: { food: FoodItem; admin?: boolean }) => {
   const [{ cartItems, foodItems, user }, dispatch] = useStateValue();
+
+  const handleAddToCart = () => {
+    addToCart(cartItems, foodItems, user, food.id, dispatch);
+
+    // Gọi hàm animateProductToCart sau khi thêm sản phẩm vào giỏ hàng thành công
+    if (user) {
+      animateProductToCart(food);
+    }
+  };
+
   return (
     <div className="flex flex-col gap-2">
       {admin ? (
@@ -34,7 +44,7 @@ const Action = ({ food, admin }: { food: FoodItem; admin?: boolean }) => {
           whileTap={{ scale: 1.1 }}
           whileHover={{ scale: 1.2 }}
           className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-red-600 flex items-center justify-center cursor-pointer"
-          onClick={() => addToCart(cartItems, foodItems, user, food.id, dispatch)}
+          onClick={handleAddToCart}
           title="Add to cart"
         >
           <MdAddShoppingCart className="text-white md:text-xl" />

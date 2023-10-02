@@ -29,8 +29,8 @@ const MobileNav = ({
   }
   return (
     <div className="flex flex-col bg-cardOverlay backdrop-blur-sm items-start justify-start gap-16 w-screen h-screen  overflow-y-hidden  z-50 overflow-hidden ">
-      <motion.div className="flex items-center justify-between w-screen h-24  px-10">
-        <motion.div
+      <motion.div className="flex items-center justify-end w-screen h-24  px-10">
+        {/* <motion.div
           whileTap={{ scale: 0.9 }}
           whileHover={{ scale: 1.1 }}
           initial={{ opacity: 0, x: 200 }}
@@ -47,7 +47,7 @@ const MobileNav = ({
               </p>
             </div>
           )}
-        </motion.div>
+        </motion.div> */}
         <motion.div
           whileTap={{ scale: 0.9 }}
           initial={{ opacity: 0, x: 200 }}
@@ -60,7 +60,7 @@ const MobileNav = ({
         </motion.div>
       </motion.div>
       <div
-        className={`flex items-center justify-center w-full  h-72 gap-10 flex-col`}
+        className={`flex items-center justify-center w-full  h-70 gap-10 flex-col`}
       >
         <Link onClick={() => setIsOpen(!isOpen)} to={'/menu'} className="text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out px-10">
           Menu

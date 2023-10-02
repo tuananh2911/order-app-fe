@@ -15,13 +15,15 @@ import {
 
 import { MdShoppingBasket } from "react-icons/md";
 import { toast } from "react-toastify";
+import { motion } from "framer-motion";
 
 export const addToCart = async (
   cartItems: cartItem[],
   foodItems: FoodItem[],
   user: any,
   fid: number,
-  dispatch: any
+  dispatch: any,
+  animateProductToCart: (product: FoodItem) => void 
 ) => {
   if (!user) {
     toast.error("Please login to add items to cart", {
@@ -41,12 +43,24 @@ export const addToCart = async (
         uid: user.uid,
         qty: 1,
       };
+
+      const product = foodItems.find((item: FoodItem) => item.id === fid);
+      if (product) {
+        animateProductToCart(product);
+      }
+
       dispatch({
         type: "SET_CARTITEMS",
         cartItems: [...cartItems, data],
       });
       calculateCartTotal(cartItems, foodItems, dispatch);
       await firebaseAddToCart(data);
+
+      toast.success("Added successfully", {
+        icon: <MdShoppingBasket className="text-2xl text-cartNumBg" />,
+        toastId: "addedSuccessfully",
+      });
+
     }
   }
 };
