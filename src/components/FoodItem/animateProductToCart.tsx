@@ -1,32 +1,47 @@
 import { motion } from "framer-motion";
-import { MdShoppingBasket } from "react-icons/md";
-import { FoodItem } from "../../../types";
+import ReactDOM from 'react-dom';
+import { Logo } from "../Assets";
 
-export const animateProductToCart = (product: FoodItem) => {
-  const cartIcon = (
-    <motion.div
-      className="cart-icon" // Đặt lớp CSS tương ứng cho biểu tượng giỏ hàng nếu cần
-    >
-      <MdShoppingBasket className="text-4xl cursor-pointer" />
-    </motion.div>
-  );
+const productIcon = (
+  <div>
+    <img src={Logo} alt="Logo" width="48" height="48" />
+  </div>
+);
 
-  if (cartIcon) {
-    const productBounds = product.getBoundingClientRect();
-    const cartBounds = cartIcon.getBoundingClientRect();
+export const animateProductToCart = (product: HTMLElement | null, imageUrl: string, name: string) => {
+  const isMobile = window.innerWidth < 768; 
+  const cartIcon = document.querySelector('.cart-icon');
+  const cartIcon2 = document.querySelector('.cart-icon-2');
+  
+  if (cartIcon && cartIcon2 && product) {
+    const productBounds:DOMRect  = product.getBoundingClientRect();
+    const cartBounds:DOMRect = cartIcon.getBoundingClientRect();
+    const cartBounds2:DOMRect = cartIcon2.getBoundingClientRect();
 
-    const xOffset = cartBounds.left - productBounds.left;
-    const yOffset = cartBounds.top - productBounds.top;
+    let xOffset, yOffset;
+
+    if (isMobile) {
+      xOffset = cartBounds.left - productBounds.left + cartBounds.width / 2;
+      yOffset = cartBounds.top - productBounds.top + cartBounds.height / 2 - 100;
+    } else {
+      xOffset = cartBounds2.left - productBounds.left;
+      yOffset = cartBounds2.top - productBounds.top - 50;
+    }
 
     const productAnimation = {
       x: xOffset,
       y: yOffset,
-      opacity: 0,
-      scale: 0.5,
+      opacity: [1, 0],
+      scale: [0.5, 1],
       transition: {
-        duration: 0.5,
-        ease: "easeOut",
+        duration: 1,
+        ease: "easeInOut",
       },
+    };
+
+    const onAnimationComplete = () => {
+      ReactDOM.unmountComponentAtNode(animatedProductContainer);
+      document.body.removeChild(animatedProductContainer);
     };
 
     const animatedProduct = (
@@ -34,21 +49,20 @@ export const animateProductToCart = (product: FoodItem) => {
         initial={{ opacity: 1 }}
         animate={productAnimation}
         exit={{ opacity: 0 }}
+        onAnimationComplete={onAnimationComplete}
         style={{
           position: "fixed",
           zIndex: 999,
+          left: productBounds.left,
+          top: productBounds.top,
         }}
       >
-        {/* Đặt nội dung của sản phẩm ở đây */}
-        {/* Ví dụ: */}
-        <img src={product.image} alt={product.name} />
-      </motion.div>
+      {productIcon}
+    </motion.div>
     );
 
-    document.body.appendChild(animatedProduct);
-
-    animatedProduct.addEventListener("animationend", () => {
-      document.body.removeChild(animatedProduct);
-    });
+    const animatedProductContainer = document.createElement('div');
+    document.body.appendChild(animatedProductContainer);
+    ReactDOM.render(animatedProduct, animatedProductContainer);
   }
 };

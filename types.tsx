@@ -10,13 +10,15 @@ export type foodItemsStatic = {
 }
 export type FoodItem = {
     id: number;
-    title: string;
+    name: string;
     description?: string;
+    isPopularFood: boolean;
     price: string;
-    imageURL: string;
-    calories: string;
-    qty: string;
-    category: string;
+    createdAt: string;
+    updatedAt: string;
+    imageUrl: string;
+    status: string;
+    categoryId: string;
 };
 
 export type FoodItems = {

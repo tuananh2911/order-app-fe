@@ -13,7 +13,7 @@ const Menu = () => {
         if(query.length === 0) {
             setFilteredFoodItems(foodItems);
         }else{
-          const filteredFoodItems = foodItems.filter((foodItem:FoodItem) => foodItem.title.toLowerCase().includes(query.toLowerCase()));
+          const filteredFoodItems = foodItems.filter((foodItem:FoodItem) => foodItem.name.toLowerCase().includes(query.toLowerCase()));
           setFilteredFoodItems(filteredFoodItems);
         }
     }

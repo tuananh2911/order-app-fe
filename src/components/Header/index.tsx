@@ -35,7 +35,7 @@ const Header = () => {
             className="flex items-center gap-2 cursor-pointer"
           >
             <img src={Logo} alt="Logo" className="md:w-6 lg:w-8 object-cover" />
-            <p className="text-headingColor md:text-lg lg:text-xl font-bold">
+            <p className="text-headingColor md:text-lg lg:text-xl font-">
               Restaurant
             </p>
           </motion.div>
@@ -103,7 +103,7 @@ const Header = () => {
               initial={{ opacity: 0, x: 200 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 200 }}
-              className="relative flex items-center justify-center text-textColor"
+              className="relative flex items-center justify-center text-textColor cart-icon"
               onClick={handleToggleCart}
             >
               <MdShoppingBasket className="text-3xl cursor-pointer" />

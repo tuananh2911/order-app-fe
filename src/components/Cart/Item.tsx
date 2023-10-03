@@ -15,13 +15,13 @@ const CartItem = ({ item }: { item: cartItem }) => {
     <div className="w-full p-1 px-2 rounded-lg bg-cartItem hover:shadow-md flex items-center justify-between gap-2 cursor-pointer ">
       <div className=" flex items-center  gap-2">
         <img
-          src={foodItem?.imageURL}
+          src={foodItem?.imageUrl}
           alt=""
           className="w-20 h-20 max-w-[60px] rounded-full object-contain"
         />
 
         <div className="flex flex-col gap-0 ">
-          <p className="text-base text-gray-50">{foodItem?.title}</p>
+          <p className="text-base text-gray-50">{foodItem?.name}</p>
           <p className="text-sm block text-gray-300 font-semibold">
             <span className="text-xs text-red-600">₵</span> {foodItem?.price}
           </p>
