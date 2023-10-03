@@ -5,7 +5,7 @@ export const FilterFood = (category: string) => {
   const [{ foodItems }, dispatch] = useStateValue();
 
   return foodItems?.filter(
-    (item: FoodItem) => item.category.toLowerCase() === category.toLowerCase()
+    (item: FoodItem) => item.categoryId.toLowerCase() === category.toLowerCase()
   );
 };
 

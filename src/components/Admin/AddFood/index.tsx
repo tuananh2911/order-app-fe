@@ -54,7 +54,7 @@ const AddFood = () => {
           category: category,
           description: description,
           price: price,
-          imageURL: image,
+          imageUrl: image,
           qty: quantity,
         };
         toast

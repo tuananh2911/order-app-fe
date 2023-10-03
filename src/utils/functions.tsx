@@ -23,7 +23,6 @@ export const addToCart = async (
   user: any,
   fid: number,
   dispatch: any,
-  animateProductToCart: (product: FoodItem) => void 
 ) => {
   if (!user) {
     toast.error("Please login to add items to cart", {
@@ -43,23 +42,12 @@ export const addToCart = async (
         uid: user.uid,
         qty: 1,
       };
-
-      const product = foodItems.find((item: FoodItem) => item.id === fid);
-      if (product) {
-        animateProductToCart(product);
-      }
-
       dispatch({
         type: "SET_CARTITEMS",
         cartItems: [...cartItems, data],
       });
       calculateCartTotal(cartItems, foodItems, dispatch);
       await firebaseAddToCart(data);
-
-      toast.success("Added successfully", {
-        icon: <MdShoppingBasket className="text-2xl text-cartNumBg" />,
-        toastId: "addedSuccessfully",
-      });
 
     }
   }
@@ -97,7 +85,7 @@ export const fetchUserCartData = async (user: any, dispatch: any) => {
 export const fetchFoodData = async (dispatch: any) => {
   try {
     const response = await fetch(
-      "https://64f7304d9d775408495341a3.mockapi.io/api/v1/foods"
+      "http://139.177.184.170:5000/api/v1/foods/1234"
     );
 
     if (!response.ok) {

@@ -1,4 +1,3 @@
-// import React from 'react'
 import { Link } from "react-router-dom";
 import { MdShoppingBasket } from "react-icons/md";
 import { motion } from "framer-motion";
@@ -49,7 +48,7 @@ const Navigations = ({ direction }: { direction?: string }) => {
       <motion.div
         whileTap={{ scale: 0.9 }}
         whileHover={{ scale: 1.1 }}
-        className="relative flex items-center justify-center text-textColor"
+        className="relative flex items-center justify-center text-textColor cart-icon-2"
         onClick={handleToggleCart}
       >
         <MdShoppingBasket className="text-2xl cursor-pointer" />
