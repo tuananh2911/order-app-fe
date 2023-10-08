@@ -21,19 +21,22 @@ import {
 } from "./utils/functions";
 
 import { AnimatePresence } from "framer-motion";
-import Contact from "./components/Contact";
+import Contract from "./components/Contact";
 import { ToastContainer } from "react-toastify";
 import { useEffect } from "react";
 import { useStateValue } from "./context/StateProvider";
+import Order from "./components/Order";
 
 function App() {
-  const [{ showCart,showContactForm, user, foodItems, cartItems, adminMode }, dispatch] =
+  const [{ showCart, showMobileNav, showOrderForm, showOrder, user, foodItems, cartItems, adminMode }, dispatch] =
     useStateValue();
-
   useEffect(() => {
     fetchFoodData(dispatch);
     dispatchUsers(dispatch);
     user && fetchUserCartData(user, dispatch);
+    if (showOrderForm) {
+      dispatch({ type: 'SHOW_ORDER_FORM', showOrderForm: false });
+    }
   }, []);
 
   useEffect(() => {
@@ -46,7 +49,10 @@ function App() {
       <ToastContainer />
       <div className="w-screen h-auto min-h-[100vh] flex flex-col bg-primary">
         {showCart && <Cart />}
-        {showContactForm && <Contact />}
+        {/* {showContractForm && <Contract />} */}
+        {showOrderForm && <Order />}
+        {showOrder && <Order />}
+        {showMobileNav && <Header />}
         {!(adminMode && isAdmin(user)) && <Header />}
         <main
           className={`${

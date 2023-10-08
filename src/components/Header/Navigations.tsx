@@ -4,17 +4,18 @@ import { motion } from "framer-motion";
 import { useStateValue } from "../../context/StateProvider";
 
 const Navigations = ({ direction }: { direction?: string }) => {
-  const [{ showContactForm, cartItems }, dispatch] = useStateValue();
+  const [{ showOrder, showOrderForm, cartItems }, dispatch] = useStateValue();
   const handleToggleCart = () => {
     dispatch({
       type: "TOGGLE_CART",
       showCart: true,
     });
   };
-  const handleToggleContact = () => {
+  const handleToggleOrder = () => {
     dispatch({
-      type: "TOGGLE_CONTACT_FORM",
-      showContactForm: !showContactForm,
+      type: "TOGGLE_ORDER_FORM",
+      showOrderForm: !showOrderForm,
+      showOrder: true,
     });
   };
   return (
@@ -43,6 +44,14 @@ const Navigations = ({ direction }: { direction?: string }) => {
         >
           <Link to={"/about"}>About us</Link>
         </motion.li>
+        {showOrder && (
+        <motion.div
+          whileTap={{ scale: 0.9 }}
+          whileHover={{ scale: 1.1 }}
+          className="text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out "
+          onClick={handleToggleOrder}
+        >Order
+        </motion.div>)}
       </motion.ul>
 
       <motion.div

@@ -139,7 +139,12 @@ export const firebaseAddToCart = async (data) => {
     merge: true,
   });
 };
-
+//  order operation    
+export const firebaseAddToOrder = async (data) => {
+  await setDoc(doc(firestore, "OrderItems", `${data.id}`), data, {
+    merge: true,
+  });
+};
 
 
 // Fetch All Cart Items  from Firestore

@@ -1,6 +1,7 @@
 import { FoodItem, cartItem } from "../../types";
 import {
   firebaseAddToCart,
+  firebaseAddToOrder,
   firebaseDeleteCartItem,
   firebaseDeleteFood,
   firebaseEmptyUserCart,
@@ -52,6 +53,42 @@ export const addToCart = async (
     }
   }
 };
+
+export const addToOrder = async (
+  orderItems: cartItem[],
+  foodItems: FoodItem[],
+  user: any,
+  fid: number,
+  dispatch: any,
+) => {
+  if (!user) {
+    toast.error("Please login to add items to order", {
+      icon: <MdShoppingBasket className="text-2xl text-cartNumBg" />,
+      toastId: "unauthorizedAddToOrder",
+    });
+  } else {
+    if (orderItems.some((item: cartItem) => item["fid"] === fid)) {
+      toast.error("Item already in order", {
+        icon: <MdShoppingBasket className="text-2xl text-cartNumBg" />,
+        toastId: "itemAlreadyInOrder",
+      });
+    } else {
+      const data: cartItem = {
+        id: Date.now(),
+        fid: fid,
+        uid: user.uid,
+        qty: 1,
+      };
+      dispatch({
+        type: "SET_CARTITEMS",
+        cartItems: [...orderItems, data],
+      });
+      calculateCartTotal(orderItems, foodItems, dispatch);
+      await firebaseAddToOrder(data);
+    }
+  }
+}
+
 export const dispatchtUserCartItems = (
   uid: string,
   items: cartItem[],
@@ -85,7 +122,7 @@ export const fetchUserCartData = async (user: any, dispatch: any) => {
 export const fetchFoodData = async (dispatch: any) => {
   try {
     const response = await fetch(
-      "http://139.177.184.170:5000/api/v1/foods/1234"
+      "https://vtda.online/api/v1/foods/7027"
     );
 
     if (!response.ok) {
@@ -228,11 +265,28 @@ export const hideCart = (dispatch: any) => {
   });
 };
 
-// Hide Cart
-export const hideContactform = (dispatch: any) => {
+
+// Hide Order
+export const hideOrderform = (dispatch: any) => {
   dispatch({
-    type: "TOGGLE_CONTACT_FORM",
-    showContactForm: !true,
+    type: "TOGGLE_ORDER_FORM",
+    showOrderForm: !true,
+  });
+};
+
+// Hide Mobile Nav
+export const hideMobileNav = (dispatch: any) => {
+  dispatch({
+    type: "TOGGLE_MOBILE_NAV",
+    showMobileNav: !true,
+  });
+};
+
+// Hide Cart
+export const hideContractform = (dispatch: any) => {
+  dispatch({
+    type: "TOGGLE_CONTRACT_FORM",
+    showContractForm: !true,
   });
 };
 

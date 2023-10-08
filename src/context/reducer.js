@@ -9,7 +9,10 @@ export const actionTypes = {
     UPDATE_USER: 'UPDATE_USER',
     SET_PAYMENT_METHOD: 'SET_PAYMENT_METHOD',
     UPDATE_CHECKOUT_DATA: 'UPDATE_CHECKOUT_DATA',
-    TOGGLE_CONTACT_FORM: 'TOGGLE_CONTACT_FORM'
+    TOGGLE_CONTRACT_FORM: 'TOGGLE_CONTRACT_FORM',
+    TOGGLE_ORDER_FORM: 'TOGGLE_ORDER_FORM',
+    TOGGLE_ORDER: 'TOGGLE_ORDER',
+    TOGGLE_MOBILE_NAV: 'TOGGLE_MOBILE_NAV',
 }
 
 const reducer = (state, action) => {
@@ -70,6 +73,26 @@ const reducer = (state, action) => {
                 ...state,
                 showContactForm: action.showContactForm
             };
+        case actionTypes.TOGGLE_CONTRACT_FORM:
+            return {
+                ...state,
+                showContractForm: action.showContractForm
+            };
+        case actionTypes.TOGGLE_ORDER_FORM:
+            return {
+                ...state,
+                showOrderForm: action.showOrderForm
+            };
+        case actionTypes.TOGGLE_ORDER:
+            return {
+                ...state,
+                showOrder: action.showOrder
+            };
+        case actionTypes.TOGGLE_MOBILE_NAV:
+            return {
+                ...state,
+                showMobileNav: action.showMobileNav
+            };    
         default:
             return state;
     }
