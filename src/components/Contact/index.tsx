@@ -1,7 +1,7 @@
-import ContactHeader from "./header";
+import ContractHeader from "./header";
 import Form from "./form";
 import { motion } from "framer-motion";
-const Contact = () => {
+const Contract = () => {
   return (
     <motion.div
       initial={{ opacity: 0, x: 200 }}
@@ -9,10 +9,10 @@ const Contact = () => {
       exit={{ opacity: 0, x: 200 }}
       className={`w-full h-screen md:w-[350px] bg-white md:backdrop-blur-sm flex flex-col z-[101] drop-shadow-xl fixed top-0 left-0`}
     >
-      <ContactHeader />
+      <ContractHeader />
       <Form />
     </motion.div>
   );
 };
 
-export default Contact;
+export default Contract;

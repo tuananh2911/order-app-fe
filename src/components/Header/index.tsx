@@ -8,13 +8,14 @@ import MobileNav from "./mobile-nav";
 import Navigations from "./Navigations";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { motion } from "framer-motion";
+import { hideMobileNav } from "../../utils/functions";
 import { useState } from "react";
 import { useStateValue } from "../../context/StateProvider";
 import { MdOutlineRestaurantMenu, MdShoppingBasket } from "react-icons/md";
 const Header = () => {
   //
   // const firebaseAuth = getAuth(app);
-  const [{ user, showCart, cartItems }, dispatch] = useStateValue();
+  const [{ user, showCart, cartItems, showMobileNav}, dispatch] = useStateValue();
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenMobileNav, setIsOpenMobileNav] = useState(false);
 
@@ -23,6 +24,13 @@ const Header = () => {
       type: "TOGGLE_CART",
       showCart: !showCart,
     });
+  };
+  const handleToggleMobile = () => {
+    // dispatch({
+    //   type: "TOGGLE_MOBILE_NAV",
+    //   showMobileNav: !showMobileNav,
+    // });
+    setIsOpenMobileNav(!isOpenMobileNav);
   };
 
   return (
@@ -82,7 +90,9 @@ const Header = () => {
             <motion.div
               whileTap={{ scale: 0.9 }}
               className=" flex items-center justify-center"
-              onClick={() => setIsOpenMobileNav(!isOpenMobileNav)}
+              // onClick={() => setIsOpenMobileNav(!isOpenMobileNav)}
+              onClick={() => handleToggleMobile()}
+
             >
               <HiOutlineMenuAlt2 className="text-headingColor text-4xl" />
             </motion.div>
