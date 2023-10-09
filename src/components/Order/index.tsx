@@ -59,7 +59,7 @@ import NotFound from "../NotFound";
 import Checkout from "../Checkout";
 import { useState } from "react";
 const Order = () => {
-  const [{ cartItems }] = useStateValue();
+  const [{ cartItems, orderItems }] = useStateValue();
   const [checkoutOpen, setCheckoutOpen] = useState(false);
   return (
     <>
@@ -74,7 +74,7 @@ const Order = () => {
             className={`w-full h-screen md:w-[350px] bg-white md:backdrop-blur-sm flex flex-col z-[101] drop-shadow-xl fixed top-0 right-0`}
           >
             <OrderHeader />
-            {cartItems && cartItems.length > 0 ? (
+            {orderItems && orderItems.length > 0 ? (
               <OrderBody action={setCheckoutOpen} />
             ) : (
               <div className="h-full w-full flex-1 flex items-center justify-center">
@@ -82,7 +82,7 @@ const Order = () => {
               </div>
             )}
           </motion.div>
-          {!cartItems && <NotFound text={"Cart Items not available"} />}
+          {!orderItems && <NotFound text={"Cart Items not available"} />}
         </>
       )}
     </>

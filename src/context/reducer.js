@@ -3,7 +3,9 @@ export const actionTypes = {
     SET_FOOD_ITEMS: 'SET_FOOD_ITEMS',
     TOGGLE_CART: 'TOGGLE_CART',
     SET_CARTITEMS: 'SET_CARTITEMS',
+    SET_ORDERITEMS: 'SET_ORDERITEMS',
     SET_CART_TOTAL: 'SET_CART_TOTAL',
+    SET_ORDER_TOTAL: 'SET_ORDER_TOTAL',
     SET_ADMIN_MODE: 'SET_ADMIN_MODE',
     SET_USERS: 'SET_USERS',
     UPDATE_USER: 'UPDATE_USER',
@@ -13,6 +15,7 @@ export const actionTypes = {
     TOGGLE_ORDER_FORM: 'TOGGLE_ORDER_FORM',
     TOGGLE_ORDER: 'TOGGLE_ORDER',
     TOGGLE_MOBILE_NAV: 'TOGGLE_MOBILE_NAV',
+    ADD_TO_ORDER: 'ADD_TO_ORDER',
 }
 
 const reducer = (state, action) => {
@@ -38,11 +41,35 @@ const reducer = (state, action) => {
                 ...state,
                 cartItems: action.cartItems,
             };
+        case actionTypes.SET_ORDERITEMS:
+            const updatedOrderItems = [...state.orderItems];
+            action.orderItems.forEach(newCartItem => {
+                const existingItemIndex = updatedOrderItems.findIndex(item => item.fid === newCartItem.fid);
+
+                if (existingItemIndex !== -1) {
+                    const updatedItem = {
+                        ...updatedOrderItems[existingItemIndex],
+                        qty: updatedOrderItems[existingItemIndex].qty + newCartItem.qty
+                    };
+                    updatedOrderItems[existingItemIndex] = updatedItem;
+                } else {
+                    updatedOrderItems.push(newCartItem);
+                }
+            });
+            return {
+                ...state,
+                orderItems: updatedOrderItems,
+            };
         case actionTypes.SET_CART_TOTAL:
             return {
                 ...state,
                 cartTotal: action.cartTotal,
             };
+        case actionTypes.SET_ORDER_TOTAL:
+            return {
+                ...state,
+                orderTotal: action.orderTotal,
+            }
         case actionTypes.SET_ADMIN_MODE:
             return {
                 ...state,
@@ -81,8 +108,10 @@ const reducer = (state, action) => {
         case actionTypes.TOGGLE_ORDER_FORM:
             return {
                 ...state,
-                showOrderForm: action.showOrderForm
+                showOrderForm: action.showOrderForm,
+                // orderItems: state.cartItems,
             };
+            /*nút bấm Order*/
         case actionTypes.TOGGLE_ORDER:
             return {
                 ...state,

@@ -49,45 +49,29 @@ export const addToCart = async (
       });
       calculateCartTotal(cartItems, foodItems, dispatch);
       await firebaseAddToCart(data);
-
     }
   }
 };
 
-export const addToOrder = async (
-  orderItems: cartItem[],
+export const addToOrder = (
+  cartItems: cartItem[],
   foodItems: FoodItem[],
-  user: any,
-  fid: number,
+  currentOrderTotal: string,
   dispatch: any,
 ) => {
-  if (!user) {
-    toast.error("Please login to add items to order", {
+  if (!cartItems || cartItems.length === 0) {
+    toast.error("No items in the cart to add to order", {
       icon: <MdShoppingBasket className="text-2xl text-cartNumBg" />,
-      toastId: "unauthorizedAddToOrder",
+      toastId: "emptyCart",
     });
-  } else {
-    if (orderItems.some((item: cartItem) => item["fid"] === fid)) {
-      toast.error("Item already in order", {
-        icon: <MdShoppingBasket className="text-2xl text-cartNumBg" />,
-        toastId: "itemAlreadyInOrder",
-      });
-    } else {
-      const data: cartItem = {
-        id: Date.now(),
-        fid: fid,
-        uid: user.uid,
-        qty: 1,
-      };
-      dispatch({
-        type: "SET_CARTITEMS",
-        cartItems: [...orderItems, data],
-      });
-      calculateCartTotal(orderItems, foodItems, dispatch);
-      await firebaseAddToOrder(data);
-    }
+    return;
   }
-}
+  dispatch({
+    type: "SET_ORDERITEMS",
+    orderItems: cartItems,
+  });
+  calculateOrderTotal(cartItems, foodItems, currentOrderTotal, dispatch); 
+};
 
 export const dispatchtUserCartItems = (
   uid: string,
@@ -122,7 +106,7 @@ export const fetchUserCartData = async (user: any, dispatch: any) => {
 export const fetchFoodData = async (dispatch: any) => {
   try {
     const response = await fetch(
-      "https://vtda.online/api/v1/foods/7027"
+      "https://vtda.online/api/v1/foods/7766"
     );
 
     if (!response.ok) {
@@ -145,27 +129,27 @@ export const getFoodyById = (menu: FoodItem[], fid: number) => {
 };
 
 //  Update cart item State
-export const updateCartItemState = async (
-  cartItems: cartItem[],
-  item: cartItem,
-  dispatch: any
-) => {
-  const index = cartItems.findIndex(
-    (cartItem: cartItem) => cartItem.id === item.id
-  );
-  if (index !== -1) {
-    cartItems[index] = item;
-  }
-  dispatch({
-    type: "SET_CARTITEMS",
-    cartItems: cartItems,
-  });
-  await firebaseUpdateCartItem(item)
-    .then(() => {})
-    .catch((e) => {
-      console.log(e);
-    });
-};
+// export const updateCartItemState = async (
+//   cartItems: cartItem[],
+//   item: cartItem,
+//   dispatch: any
+// ) => {
+//   const index = cartItems.findIndex(
+//     (cartItem: cartItem) => cartItem.id === item.id
+//   );
+//   if (index !== -1) {
+//     cartItems[index] = item;
+//   }
+//   dispatch({
+//     type: "SET_CARTITEMS",
+//     cartItems: cartItems,
+//   });
+//   await firebaseUpdateCartItem(item)
+//     .then(() => {})
+//     .catch((e) => {
+//       console.log(e);
+//     });
+// };
 
 // Update Cart Item Quantity
 export const updateCartItemQty = async (
@@ -233,6 +217,28 @@ export const calculateCartTotal = (
     type: "SET_CART_TOTAL",
     cartTotal: total.toFixed(2),
   });
+};
+// Calculate Total Price Round to 2 decimal places
+export const calculateOrderTotal = (
+  newOrderItems: cartItem[],
+  foodItems: FoodItem[],
+  currentOrderTotal: string,
+  dispatch: any
+) => {
+  let total = parseFloat(currentOrderTotal);
+  console.log("currentOrderTotal", currentOrderTotal);
+  newOrderItems.forEach((item: cartItem) => {
+    const foodItem = getFoodyById(foodItems, item.fid);
+    total += item.qty * parseFloat(foodItem?.price || "0");
+  });
+  if (typeof total === "number") {
+    dispatch({
+      type: "SET_ORDER_TOTAL",
+      orderTotal: total.toFixed(2),
+    });
+  } else {
+    console.error("Total is not a number:", total);
+  }  
 };
 
 // Empty Cart
