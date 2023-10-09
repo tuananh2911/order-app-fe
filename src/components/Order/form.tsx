@@ -1,19 +1,19 @@
-import CartItem from './item'
-import CartTotal from './CartTotal'
+import OrderItem from './item'
+import OrderTotal from './OrderTotal'
 import { useStateValue } from '../../context/StateProvider';
 
 const OrderBody = ({action}:{action:any}) => {
-  const [{cartItems}] = useStateValue();
+  const [{cartItems, orderItems}] = useStateValue();
   return (
-    <div className='w-full h-full rounded-t-[2rem]  bg-cartBg flex flex-col'>
-        <div className='w-full h-[340px] md:h-42 px-6 py-10 flex flex-col gap-3 overflow-y-scroll scrollbar-hidden'>
+    <div className='w-full h-full rounded-t-[2rem] backgroundColor flex flex-col' style={{ backgroundColor: '#374259' }}>
+        <div className='w-full h-[60vh] backgroundColor md:h-42 px-6 py-10 flex flex-col gap-3 overflow-y-scroll scrollbar-hidden' style={{ backgroundColor: '#374259' }}>
         {
-          cartItems && cartItems.length > 0 && cartItems.map((item:any, index:number) => {
-            return <CartItem key={index} item={item} />
+          orderItems && orderItems.length > 0 && orderItems.map((item:any, index:number) => {
+            return <OrderItem key={index} item={item} />
           } )
         }
         </div>
-        <CartTotal checkoutState={action} />
+        <OrderTotal checkoutState={action} />
     </div>
   )
 }

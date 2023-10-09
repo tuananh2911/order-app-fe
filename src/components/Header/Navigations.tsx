@@ -44,14 +44,13 @@ const Navigations = ({ direction }: { direction?: string }) => {
         >
           <Link to={"/about"}>About us</Link>
         </motion.li>
-        {showOrder && (
         <motion.div
           whileTap={{ scale: 0.9 }}
           whileHover={{ scale: 1.1 }}
           className="text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out "
           onClick={handleToggleOrder}
         >Order
-        </motion.div>)}
+        </motion.div>
       </motion.ul>
 
       <motion.div
