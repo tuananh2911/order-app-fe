@@ -70,7 +70,7 @@ export const addToOrder = (
     type: "SET_ORDERITEMS",
     orderItems: cartItems,
   });
-  calculateOrderTotal(cartItems, foodItems, currentOrderTotal, dispatch); 
+  calculateOrderTotal(cartItems, foodItems, currentOrderTotal, dispatch);
 };
 
 export const dispatchtUserCartItems = (
@@ -94,7 +94,7 @@ export const fetchUserCartData = async (user: any, dispatch: any) => {
         const userCart = dispatchtUserCartItems(user.uid, data, dispatch);
         localStorage.setItem("cartItems", JSON.stringify(userCart));
       })
-      .then(() => {})
+      .then(() => { })
       .catch((e) => {
         console.log(e);
       });
@@ -106,7 +106,7 @@ export const fetchUserCartData = async (user: any, dispatch: any) => {
 export const fetchFoodData = async (dispatch: any) => {
   try {
     const response = await fetch(
-      "https://vtda.online/api/v1/foods/7766"
+      "https://vtda.online/api/v1/foods/2377"
     );
 
     if (!response.ok) {
@@ -170,7 +170,7 @@ export const updateCartItemQty = async (
     });
     calculateCartTotal(cartItems, foodItems, dispatch);
     await firebaseUpdateCartItem(cartItems[index])
-      .then(() => {})
+      .then(() => { })
       .catch((e) => {
         console.log(e);
       });
@@ -195,7 +195,7 @@ export const deleteCartItem = async (
     });
     calculateCartTotal(cartItems, foodItems, dispatch);
     await firebaseDeleteCartItem(item)
-      .then(() => {})
+      .then(() => { })
       .catch((e) => {
         console.log(e);
       });
@@ -215,7 +215,7 @@ export const calculateCartTotal = (
   });
   dispatch({
     type: "SET_CART_TOTAL",
-    cartTotal: total.toFixed(2),
+    cartTotal: total.toFixed(0),
   });
 };
 // Calculate Total Price Round to 2 decimal places
@@ -234,11 +234,11 @@ export const calculateOrderTotal = (
   if (typeof total === "number") {
     dispatch({
       type: "SET_ORDER_TOTAL",
-      orderTotal: total.toFixed(2),
+      orderTotal: total.toFixed(0),
     });
   } else {
     console.error("Total is not a number:", total);
-  }  
+  }
 };
 
 // Empty Cart
@@ -254,7 +254,7 @@ export const emptyCart = async (
     });
     calculateCartTotal(cartItems, foodItems, dispatch);
     await firebaseEmptyUserCart(cartItems)
-      .then(() => {})
+      .then(() => { })
       .catch((e) => {
         console.log(e);
       });
