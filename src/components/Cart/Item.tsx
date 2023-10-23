@@ -13,7 +13,7 @@ const CartItem = ({ item }: { item: cartItem }) => {
 
   return (
     <div className="w-full p-1 px-2 rounded-lg bg-cartItem hover:shadow-md flex items-center justify-between gap-2 cursor-pointer ">
-      <div className=" flex items-center  gap-2">
+      <div className=" flex items-center gap-2">
         <img
           src={foodItem?.imageUrl}
           alt=""
@@ -23,7 +23,7 @@ const CartItem = ({ item }: { item: cartItem }) => {
         <div className="flex flex-col gap-0 ">
           <p className="text-base text-gray-50">{foodItem?.name}</p>
           <p className="text-sm block text-gray-300 font-semibold">
-            <span className="text-xs text-red-600">₵</span> {foodItem?.price}
+            {foodItem?.price} <span className="text-xs text-red-600">đ</span>
           </p>
         </div>
       </div>
@@ -32,7 +32,7 @@ const CartItem = ({ item }: { item: cartItem }) => {
         <motion.div
           className=""
           whileTap={{ scale: 0.75 }}
-          onClick={qty > 1 ? () => updateCartItemQty(cartItems, foodItems, item, dispatch, -1) : () => {}}
+          onClick={qty > 1 ? () => updateCartItemQty(cartItems, foodItems, item, dispatch, -1) : () => { }}
         >
           <BiMinus className="text-gray-50" />
         </motion.div>
