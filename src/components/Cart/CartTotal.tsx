@@ -12,7 +12,6 @@ const CartTotal = ({ checkoutState }: { checkoutState: any }) => {
     dispatch({
       type: "TOGGLE_ORDER_FORM",
       showOrderForm: !showOrderForm,
-      // showOrder: true,
     });
   };
   return (

@@ -242,6 +242,10 @@ export const deleteCartItem = async (
   }
 };
 
+//format total
+export function formatNumber(number: any) {
+  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
 // Calculate Total Price Round to 2 decimal places
 export const calculateCartTotal = (
   cartItems: cartItem[],
@@ -253,9 +257,10 @@ export const calculateCartTotal = (
     const foodItem = getFoodyById(foodItems, item.fid);
     total += item.qty * parseFloat(foodItem?.price || "0");
   });
+  const formattedTotal = formatNumber(total);
   dispatch({
     type: "SET_CART_TOTAL",
-    cartTotal: total.toFixed(0),
+    cartTotal: formattedTotal,
   });
 };
 // Calculate Total Price Round to 2 decimal places
