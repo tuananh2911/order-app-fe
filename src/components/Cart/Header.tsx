@@ -19,7 +19,7 @@ const CartHeader = () => {
         <MdShoppingBasket className="text-xl cursor-pointer text-cartNumBg" />
       </div>
 
-      {user ? (
+      {/* {user ? (
         <motion.p
           whileTap={{ scale: 0.9 }}
           whileHover={{ scale: 0.9 }}
@@ -38,7 +38,7 @@ const CartHeader = () => {
             <MdLogin className="text-cartNumBg" /> Login to cart
           </motion.p>
         </Link>
-      )}
+      )} */}
     </div>
   );
 };

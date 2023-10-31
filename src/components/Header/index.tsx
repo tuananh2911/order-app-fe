@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 import DropDown from "./DropDown";
 import { HiOutlineMenuAlt2 } from "react-icons/hi";
-import LoginAction from "./LoginAction";
 import MobileNav from "./mobile-nav";
 import Navigations from "./Navigations";
 import { RiArrowDropDownLine } from "react-icons/ri";
@@ -53,27 +52,6 @@ const Header = () => {
         <Navigations />
 
         {/* User */}
-
-        {user ? (
-          <div className={`group flex items-center gap-3 px-3 py-1 rounded-lg`}>
-            <motion.div
-              whileHover={{ scale: 1.1 }}
-              className=" flex items-center justify-center"
-            >
-              <img
-                src={Avatar}
-                className="w-10 min-w-[40px] h-10 min-h-[40px] drop-shadow-2xl rounded-full cursor-pointer object-contain"
-                alt="profile"
-              />
-              <p className="text-headingColor cursor-pointer flex items-center justify-center gap-2">
-                <RiArrowDropDownLine />
-              </p>
-            </motion.div>
-            <DropDown user={user} />
-          </div>
-        ) : (
-          <LoginAction text={"Login"} />
-        )}
       </div>
 
       {/* Mobile */}
@@ -125,29 +103,6 @@ const Header = () => {
                 </div>
               )}
             </motion.div>
-            {user ? (
-              <div
-                className={`flex items-center gap-3 px-3 py-1 rounded-lg relative`}
-              >
-                <motion.div
-                  whileHover={{ scale: 1.1 }}
-                  className="group flex items-center justify-center"
-                >
-                  <img
-                    src={Avatar}
-                    className="w-10 min-w-[40px] h-10 min-h-[40px] drop-shadow-2xl rounded-full cursor-pointer"
-                    alt="user-profile"
-                    onClick={() => setIsOpen(!isOpen)}
-                  />
-                  <p className="text-headingColor cursor-pointer flex items-center justify-center gap-2">
-                    <RiArrowDropDownLine />
-                  </p>
-                  {isOpen && <DropDown user={user} />}
-                </motion.div>
-              </div>
-            ) : (
-              <LoginAction mobile />
-            )}
           </div>
         )}
       </motion.div>
