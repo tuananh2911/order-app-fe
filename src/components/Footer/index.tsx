@@ -12,7 +12,7 @@ import { Logo } from "../Assets";
 import React from "react";
 import { motion } from "framer-motion";
 
-const Footer = () => {
+const Footer: React.FC<{ className?: string }> = ({ className }) => {
   return (
     <footer className="p-4 bg-primary sm:p-6 w-full">
       <div className="flex justify-center md:justify-start items-center">
@@ -25,7 +25,7 @@ const Footer = () => {
               alt="Logo"
             />
             <span className="self-center text-2xl font-semibold whitespace-nowrap text-headingColor">
-              Bentilzone
+              Nem nướng Cô Lê
             </span>
           </Link>
         </motion.div>
@@ -37,7 +37,7 @@ const Footer = () => {
             {
               new Date().getFullYear()
             }    
-           {" "}Bentilzone™. All Rights Reserved.
+           {" "}Tuấn Anh™. All Rights Reserved.
         </span>
         <div className="flex mt-4 space-x-6 sm:justify-center sm:mt-0 md:text-xl">
           <motion.a

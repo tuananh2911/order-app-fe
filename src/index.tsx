@@ -7,6 +7,13 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { StateProvider } from './context/StateProvider';
 import { initialState } from './context/initialState';
 import reducer from './context/reducer';
+const urlParams = new URLSearchParams(window.location.search);
+const token = urlParams.get('tableId');
+if (token) {
+  localStorage.setItem('tableId', token);
+  // Xóa token khỏi URL
+  window.history.replaceState({}, document.title, window.location.pathname);
+}
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
