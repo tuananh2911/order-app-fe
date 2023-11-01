@@ -21,7 +21,8 @@ const Menu = ({ title }: { title?: string }) => {
     if (!filter && categories && categories.length > 0) {
       setFilter(categories[0].id);
     }
-  }, [categories, filter]);
+  }, [categories]);
+
 
   useEffect(() => {
     // Fetch dữ liệu mỗi khi filter thay đổi
@@ -29,7 +30,7 @@ const Menu = ({ title }: { title?: string }) => {
       fetchFoodData(dispatch, filter);
     }
   }, [filter, dispatch]);
-
+  console.log('filter', filter);
   return (
     <section className="w-full my-5">
       <div className="w-full flex items-center justify-center">

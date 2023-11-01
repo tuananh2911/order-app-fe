@@ -16,7 +16,7 @@ const Button = ({
   return (
     <motion.div
       onClick={() => {
-        dispatch({ type: 'SET_FILTER', filter: category.urlParam });
+        setFilter(category.id);
       }}
       whileTap={{ scale: 1.1 }}
       className={`group ${isActive ? "bg-cartNumBg" : "bg-btnOverlay hover:bg-cartNumBg"} w-24 min-w-[6rem] h-28 cursor-pointer rounded-lg drop-shadow-xl flex flex-col gap-3 items-center justify-center duration-150 transition-all  ease-out`}
