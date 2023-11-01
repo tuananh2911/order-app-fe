@@ -1,10 +1,8 @@
 import { MdCloudUpload } from 'react-icons/md'
-import { firebaseUploadImage } from '../../Firebase';
 
 const Upload = ({action, promise,  progressHandler, to = "Products"}:{action:any, promise:any,  progressHandler:any, to?:string}) => {
     const uploadImage = (e:any) => {
       const imageFIle = e.target.files[0]
-      firebaseUploadImage(imageFIle, promise, progressHandler, action, to)
     }
   return (
 <div className="flex justify-center items-center w-full h-full">

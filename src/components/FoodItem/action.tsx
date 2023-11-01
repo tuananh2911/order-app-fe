@@ -1,7 +1,7 @@
 import React from "react";
 import { useStateValue } from "../../context/StateProvider";
 import { motion } from "framer-motion";
-import { addToCart, deleteFood } from "../../utils/functions";
+import { addToCart } from "../../utils/functions";
 import { MdAddShoppingCart, MdDeleteForever } from "react-icons/md";
 import { BiEditAlt } from "react-icons/bi";
 import { FoodItem } from "../../../types";
@@ -39,7 +39,6 @@ const Action = ({
             whileTap={{ scale: 1.1 }}
             whileHover={{ scale: 1.2 }}
             className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-red-600 flex items-center justify-center cursor-pointer"
-            onClick={() => deleteFood(food, foodItems, dispatch)}
             title="Delete"
           >
             <MdDeleteForever className="text-white md:text-xl" />

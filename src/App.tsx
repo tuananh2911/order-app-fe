@@ -10,7 +10,6 @@ import { Cart, Footer, Header } from "./components";
 import { Route, Router, Routes, useNavigate } from "react-router-dom";
 import {
   calculateCartTotal,
-  dispatchUsers,
   fetchCategory,
   fetchFoodData,
   fetchUserCartData,
@@ -44,7 +43,6 @@ function App() {
   useEffect(() => {
     fetchCategory(dispatch);
     fetchFoodData(dispatch, filter);
-    dispatchUsers(dispatch);
     user && fetchUserCartData(user, dispatch);
     if (showOrderForm) {
       dispatch({ type: "SHOW_ORDER_FORM", showOrderForm: false });
