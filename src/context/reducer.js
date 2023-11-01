@@ -2,6 +2,7 @@ export const actionTypes = {
     SET_USER: 'SET_USER',
     SET_FOOD_ITEMS: 'SET_FOOD_ITEMS',
     SET_CATEGORY: 'SET_CATEGORY',
+    SET_FOODS_POPULAR: 'SET_FOODS_POPULAR',
     TOGGLE_CART: 'TOGGLE_CART',
     SET_CARTITEMS: 'SET_CARTITEMS',
     SET_ORDERITEMS: 'SET_ORDERITEMS',
@@ -47,11 +48,21 @@ const reducer = (state, action) => {
                 ...state,
                 foodItems: action.foodItems,
             };
+        case "SET_LOADING":
+            return {
+            ...state,
+            loading: action.loading,
+        };
         case actionTypes.SET_CATEGORY:
             return {
                 ...state,
                 categories: action.categories,
             }
+            case actionTypes.SET_FOODS_POPULAR:
+                return {
+                    ...state,
+                    foodItemsPopular: action.foodItemsPopular,
+                }
         case actionTypes.TOGGLE_CART:
             return {
                 ...state,

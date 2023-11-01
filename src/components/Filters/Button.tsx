@@ -12,46 +12,25 @@ const Button = ({
   setFilter: any;
   dispatch: any;
 }) => {
+  const isActive = category.urlParam === filter;
   return (
     <motion.div
-      // onClick={() => setFilter(category.urlParam)}
       onClick={() => {
-        setFilter(category.urlParam);
         dispatch({ type: 'SET_FILTER', filter: category.urlParam });
       }}
-      //   whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 1.1 }}
-      className={`group ${category.urlParam === filter
-        ? "hover:bg-btnOverlay bg-cartNumBg"
-        : "bg-btnOverlay hover:bg-cartNumBg"
-        } w-24 min-w-[6rem] h-28 cursor-pointer rounded-lg drop-shadow-xl flex flex-col gap-3 items-center justify-center duration-150 transition-all  ease-out`}
+      className={`group ${isActive ? "bg-cartNumBg" : "bg-btnOverlay hover:bg-cartNumBg"} w-24 min-w-[6rem] h-28 cursor-pointer rounded-lg drop-shadow-xl flex flex-col gap-3 items-center justify-center duration-150 transition-all  ease-out`}
     >
       <div
-        className={`w-16 h-16 rounded-full ${category.urlParam === filter
-          ? "group-hover:bg-cartNumBg bg-btnOverlay"
-          : "bg-cartNumBg group-hover:bg-btnOverlay"
-          }  flex items-center justify-center`}
+        className={`w-16 h-16 rounded-full ${isActive ? "bg-btnOverlay" : "bg-cartNumBg group-hover:bg-btnOverlay"}`}
       >
-        {/* <MdOutlineFastfood
-
-        /> */}
         <img
-          className={`rounded-full w-16 h-16 ${category.urlParam === filter
-            ? "group-hover:bg-cartNumBg bg-btnOverlay"
-            : "bg-cartNumBg group-hover:bg-btnOverlay"
-            }`}
+          className={`rounded-full w-16 h-16`}
           src={category.imageUrl}
           alt={category.name}
         />
-
-
       </div>
-      <p
-        className={`text-base ${category.urlParam === filter
-          ? "group-hover:text-textColor text-white"
-          : "text-textColor group-hover:text-white"
-          } `}
-      >
+      <p className={`text-base ${isActive ? "text-white" : "text-textColor group-hover:text-white"}`}>
         {category.name}
       </p>
     </motion.div>

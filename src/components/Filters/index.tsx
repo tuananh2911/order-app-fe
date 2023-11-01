@@ -6,7 +6,11 @@ import { BiRestaurant } from "react-icons/bi";
 import { useStateValue } from "../../context/StateProvider";
 
 const Filters = ({ filter, setFilter }: { filter: string, setFilter: any }) => {
-  const [{ }, dispatch] = useStateValue();
+  const [{ categories }, dispatch] = useStateValue();
+
+  if (!categories) {
+    return null; // hoặc bạn có thể trả về một component loading hoặc thông báo khác
+  }
 
   return (
     <motion.div
@@ -15,16 +19,16 @@ const Filters = ({ filter, setFilter }: { filter: string, setFilter: any }) => {
       exit={{ opacity: 0, x: 200 }}
       className={`w-full py-10 flex items-center justify-start lg:justify-center  h-auto gap-4 md:gap-8  px-2  overflow-x-scroll scrollbar-hidden  scroll-smooth`}
     >
-      {/* <Button category={{ id: 666, name: "Menu", urlParam: "all", icon: <BiRestaurant /> }} filter={filter} setFilter={setFilter} dispatch={dispatch} /> */}
       {
-        Categories.map((category: FoodCategory) => {
+        categories.map((category: FoodCategory) => {
           return <Button key={category.id} category={category} filter={filter} setFilter={setFilter} dispatch={dispatch}
           />
         })
       }
-
     </motion.div>
   );
 };
+
+
 
 export default Filters;

@@ -107,19 +107,9 @@ export const fetchUserCartData = async (user: any, dispatch: any) => {
   }
 };
 
-export const fetchFoodDataByFilter = (filter: string): string => {
-  let apiUrl = "https://vtda.online/api/v1/foods/";
-  if (filter) {
-    apiUrl += filter;
-  } else if (filter == 'all') {
-    apiUrl += "7766";
-  }
-  return apiUrl;
-};
 
-
-export const fetchFoodData = async (dispatch: any, filter: string) => {
-  const apiUrl = fetchFoodDataByFilter(filter);
+export const fetchFoodData = async (dispatch: any, categoryId: string) => {
+  const apiUrl = `https://vtda.online/api/v1/foods/${categoryId}`;
   try {
     const response = await fetch(apiUrl);
 
@@ -141,25 +131,6 @@ export const getFoodyById = (menu: FoodItem[], fid: number) => {
   return menu.find((item: FoodItem) => item.id === fid);
 };
 
-const getIconForCategory = (categoryName: String) => {
-  switch (categoryName.toLowerCase()) {
-    case 'gà':
-      return <GiChickenOven />;
-    case 'cứt':
-      return <GiFruitTree />;
-    case 'lợn nạc':
-      return < GiBowlOfRice />;
-    case 'g':
-      return null;
-    case 'lợn':
-      return <MdOutlineIcecream />;
-    case 'bò':
-      return <GiBowlOfRice />;
-    default:
-      return null;
-  }
-}
-
 export const fetchCategory = async (dispatch: any) => {
   const apiUrl = 'https://vtda.online/api/v1/categories';
 
@@ -172,7 +143,6 @@ export const fetchCategory = async (dispatch: any) => {
 
     const data = await response.json();
     const mappedCategories: FoodCategories = data.map((category: FoodCategory) => {
-      console.log("icon", category.imageUrl);
       return {
         id: category.id,
         name: category.name,
@@ -190,6 +160,37 @@ export const fetchCategory = async (dispatch: any) => {
     console.log(error);
   }
 };
+export const fetchFoodPopular = async (dispatch: any) => {
+  const apiUrl = 'https://vtda.online/api/v1/foods/popular';
+
+  try {
+    const response = await fetch(apiUrl);
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    const data = await response.json();
+    dispatch({
+      type: "SET_FOODS_POPULAR",
+      foodItemsPopular: data,
+    });
+
+    // Cập nhật trạng thái loading sau khi fetch dữ liệu xong
+    dispatch({
+      type: "SET_LOADING",
+      loading: false,
+    });
+  } catch (error) {
+    console.log(error);
+    // Cập nhật trạng thái loading nếu có lỗi
+    dispatch({
+      type: "SET_LOADING",
+      loading: false,
+    });
+  }
+};
+
 
 // Update Cart Item Quantity
 export const updateCartItemQty = async (
