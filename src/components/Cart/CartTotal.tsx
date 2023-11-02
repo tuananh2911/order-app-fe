@@ -6,8 +6,7 @@ const CartTotal = ({ checkoutState }: { checkoutState: any }) => {
   const handleToggleOrder = () => {
     addToOrder(cartItems, foodItems, orderTotal, dispatch);
     dispatch({
-      type: "SET_CARTITEMS",
-      cartItems: [],
+      type: "CLEAR_CART",
     });
     dispatch({
       type: "TOGGLE_ORDER_FORM",

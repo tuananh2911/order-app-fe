@@ -12,13 +12,13 @@ const Action = ({
   admin,
   productRef
 }: { food: FoodItem; admin?: boolean; productRef: React.RefObject<HTMLImageElement> }) => {
-  const [{ cartItems, foodItems, user }, dispatch] = useStateValue();
+  const [{ cartItems, foodItems }, dispatch] = useStateValue();
 
   const handleAddToCart = () => {
-    addToCart(cartItems, foodItems, user, food.id, dispatch);
+    addToCart(cartItems, foodItems, food.id, dispatch);
 
     // Gọi hàm animateProductToCart sau khi thêm sản phẩm vào giỏ hàng thành công
-    if (user && productRef.current) {
+    if (productRef.current) {
       animateProductToCart(productRef.current, food.imageUrl, food.name);
     }
   };
