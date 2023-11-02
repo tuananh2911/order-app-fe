@@ -11,34 +11,25 @@ import { motion } from "framer-motion";
 export const addToCart = async (
   cartItems: cartItem[],
   foodItems: FoodItem[],
-  user: any,
   fid: number,
   dispatch: any,
 ) => {
-  if (!user) {
-    toast.error("Please login to add items to cart", {
+  if (cartItems.some((item: cartItem) => item["fid"] === fid)) {
+    toast.error("Item already in cart", {
       icon: <MdShoppingBasket className="text-2xl text-cartNumBg" />,
-      toastId: "unauthorizedAddToCart",
+      toastId: "itemAlreadyInCart",
     });
   } else {
-    if (cartItems.some((item: cartItem) => item["fid"] === fid)) {
-      toast.error("Item already in cart", {
-        icon: <MdShoppingBasket className="text-2xl text-cartNumBg" />,
-        toastId: "itemAlreadyInCart",
-      });
-    } else {
-      const data: cartItem = {
-        id: Date.now(),
-        fid: fid,
-        uid: user.uid,
-        qty: 1,
-      };
-      dispatch({
-        type: "SET_CARTITEMS",
-        cartItems: [...cartItems, data],
-      });
-      calculateCartTotal(cartItems, foodItems, dispatch);
-    }
+    const data: cartItem = {
+      id: Date.now(),
+      fid: fid,
+      qty: 1,
+    };
+    dispatch({
+      type: "SET_CARTITEMS",
+      cartItems: [...cartItems, data],
+    });
+    calculateCartTotal(cartItems, foodItems, dispatch);
   }
 };
 
@@ -62,37 +53,21 @@ export const addToOrder = (
   calculateOrderTotal(cartItems, foodItems, currentOrderTotal, dispatch);
 };
 
-export const dispatchtUserCartItems = (
-  uid: string,
-  items: cartItem[],
-  dispatch: any
-) => {
-  const cartItems = items.filter((item: cartItem) => item.uid === uid);
-  dispatch({
-    type: "SET_CARTITEMS",
-    cartItems: cartItems,
-  });
-
-  return cartItems;
-};
-
-export const fetchUserCartData = async (user: any, dispatch: any) => {
-  if (user) {
-  } else {
-    localStorage.setItem("cartItems", "undefined");
-  }
-};
+// export const fetchUserCartData = async (user: any, dispatch: any) => {
+//   if (user) {
+//   } else {
+//     localStorage.setItem("cartItems", "undefined");
+//   }
+// };
 
 
 export const fetchFoodData = async (dispatch: any, categoryId: string) => {
   const apiUrl = `https://vtda.online/api/v1/foods/${categoryId}`;
   try {
     const response = await fetch(apiUrl);
-
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
-
     const data = await response.json();
     dispatch({
       type: "SET_FOOD_ITEMS",

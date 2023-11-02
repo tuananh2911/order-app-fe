@@ -35,7 +35,6 @@ export type FoodCategory = {
 export type cartItem = {
   id: number;
   fid: number;
-  uid: string;
   qty: number;
 }
 

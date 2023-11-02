@@ -12,7 +12,7 @@ import {
   calculateCartTotal,
   fetchCategory,
   fetchFoodData,
-  fetchUserCartData,
+  // fetchUserCartData,
   isAdmin,
 } from "./utils/functions";
 import { AnimatePresence } from "framer-motion";
@@ -43,7 +43,7 @@ function App() {
   useEffect(() => {
     fetchCategory(dispatch);
     fetchFoodData(dispatch, filter);
-    user && fetchUserCartData(user, dispatch);
+    // user && fetchUserCartData(user, dispatch);
     if (showOrderForm) {
       dispatch({ type: "SHOW_ORDER_FORM", showOrderForm: false });
     }
@@ -76,11 +76,10 @@ function App() {
         {showMobileNav && <Header />}
         {!(adminMode && isAdmin(user)) && <Header />}
         <main
-          className={`${
-            !(adminMode && isAdmin(user)) &&
+          className={`${!(adminMode && isAdmin(user)) &&
             "mt-16 md:mt-16 px-3 md:px-8 md:py-6 py-4"
-          } w-full h-auto`}
-          onClick={() => {}}
+            } w-full h-auto`}
+          onClick={() => { }}
         >
           {/* Routes */}
           <Routes>
