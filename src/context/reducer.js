@@ -52,21 +52,19 @@ const reducer = (state, action) => {
                 ...state,
                 user: action.user,
             };
-        // console.log("currentFood", currentFood);
-        // console.log("updatedFoodItems", updatedFoodItems);
         case actionTypes.SET_FOOD_ITEMS:
             const newFoodItems = action.foodItems;
             const currentFood = state.foodItems ? [...state.foodItems] : [];
-            console.log("currentFood", currentFood);
-            const updatedFoodItems = currentFood.concat(newFoodItems);
-            console.log("updatedFoodItems", updatedFoodItems);
+            const isItemInCurrentFood = (item) => {
+                return currentFood.some((existingItem) => existingItem.id === item.id);
+            };
+            const updatedFoodItems = newFoodItems.filter((newItem) => !isItemInCurrentFood(newItem));
             localStorage.setItem('foodItems', JSON.stringify(updatedFoodItems));
             return {
                 ...state,
-                previousFoodItems: state.foodItems, // Lưu danh mục cũ vào previousFoodItems
-                foodItems: updatedFoodItems, // Thêm danh mục mới vào foodItems
+                previousFoodItems: state.foodItems,
+                foodItems: currentFood.concat(updatedFoodItems),
             };
-
         case "SET_LOADING":
             return {
                 ...state,

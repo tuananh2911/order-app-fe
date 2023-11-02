@@ -186,7 +186,7 @@ export const deleteCartItem = async (
 
 //format total
 export function formatNumber(number: any) {
-  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 // Calculate Total Price Round to 2 decimal places
 export const calculateCartTotal = (

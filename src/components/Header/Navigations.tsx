@@ -30,27 +30,28 @@ const Navigations = ({ direction }: { direction?: string }) => {
           whileHover={{ scale: 1.1 }}
           className="md:text-sm lg:text-md text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out"
         >
-          <Link to={"/"}>Home</Link>
+          <Link to={"/"}>Trang chủ</Link>
         </motion.li>
         <motion.li
           whileHover={{ scale: 1.1 }}
           className="md:text-sm lg:text-md text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out"
         >
-          <Link to={"/menu"}>Menu</Link>
-        </motion.li>
-        <motion.li
-          whileHover={{ scale: 1.1 }}
-          className="md:text-sm lg:text-md text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out"
-        >
-          <Link to={"/about"}>About us</Link>
+          <Link to={"/menu"}>Thực đơn</Link>
         </motion.li>
         <motion.div
           whileTap={{ scale: 0.9 }}
           whileHover={{ scale: 1.1 }}
           className="text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out "
           onClick={handleToggleOrder}
-        >Order
+        >Hóa đơn của bạn
         </motion.div>
+        <motion.li
+          whileHover={{ scale: 1.1 }}
+          className="md:text-sm lg:text-md text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out"
+        >
+          <Link to={"/about"}>Về chúng tôi</Link>
+        </motion.li>
+
       </motion.ul>
 
       <motion.div

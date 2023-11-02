@@ -19,7 +19,7 @@ const CartHeader = () => {
       </motion.div>
 
       <div className="flex items-center justify-center gap-2">
-        Cart
+        Giỏ hàng
         <MdShoppingBasket className="text-xl cursor-pointer text-cartNumBg" />
       </div>
       <motion.p
