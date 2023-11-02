@@ -22,11 +22,9 @@ export const SingleFoodItem = ({
   return (
     <motion.div
       whileTap={{ rotate: [0, -1, 1, -1, 0] }}
-      className={`${
-        !col ? "w-[275px] min-w-[275px]" : "w-[320px] min-w-[320px]"
-      } md:w-[300px] md:min-w-[300px] ${
-        col ? "my-12" : "my-2 md:my-5"
-      } h-auto bg-cardOverlay rounded-lg p-2 px-3 backdrop-blur-lg hover:drop-shadow-sm cursor-pointer`}
+      className={`${!col ? "w-[275px] min-w-[275px]" : "w-[320px] min-w-[320px]"
+        } md:w-[300px] md:min-w-[300px] ${col ? "my-12" : "my-2 md:my-5"
+        } h-auto bg-cardOverlay rounded-lg p-2 px-3 backdrop-blur-lg hover:drop-shadow-sm cursor-pointer`}
     >
       <div className="w-full flex items-center justify-between">
         <motion.img
@@ -40,7 +38,7 @@ export const SingleFoodItem = ({
 
         <Action food={item} admin={admin} productRef={productRef} />
       </div>
-      <div className="w-full flex items-end justify-end flex-col">
+      <div className="w-full flex items-end justify-end flex-col ">
         <p className="text-textColor font-semi-bold text-lg">{name}</p>
         <p className="mt-1 text-sm text-gray-500">{description} </p>
         <div className="flex items-center justify-between gap-8 ">

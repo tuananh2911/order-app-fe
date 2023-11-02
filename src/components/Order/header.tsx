@@ -15,7 +15,7 @@ const OrderHeader = () => {
       </motion.div>
 
       <div className="flex items-center justify-center gap-2 p-1 px- my-2">
-        Order Detail
+        Hóa đơn của bạn
       </div>
 
 

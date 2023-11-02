@@ -41,7 +41,6 @@ function App() {
   ] = useStateValue();
 
   useEffect(() => {
-    fetchCategory(dispatch);
     fetchFoodData(dispatch, filter);
     user && fetchUserCartData(user, dispatch);
     if (showOrderForm) {
