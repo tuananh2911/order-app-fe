@@ -10,7 +10,7 @@ import { fetchCategory, fetchFoodData } from "../../../utils/functions";
 const Menu = ({ title }: { title?: string }) => {
   const [scrollValue, setScrollValue] = useState(0);
   const [{ foodItems, categories }, dispatch] = useStateValue();
-  const [filter, setFilter] = useState<string>("");
+  const [filter, setFilter] = useState<string>("2377");
 
   useEffect(() => {
     // Fetch categories khi component được mount

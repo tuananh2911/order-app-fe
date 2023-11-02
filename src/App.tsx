@@ -12,7 +12,7 @@ import {
   calculateCartTotal,
   fetchCategory,
   fetchFoodData,
-  // fetchUserCartData,
+  fetchUserCartData,
   isAdmin,
 } from "./utils/functions";
 import { AnimatePresence } from "framer-motion";
@@ -43,7 +43,7 @@ function App() {
   useEffect(() => {
     fetchCategory(dispatch);
     fetchFoodData(dispatch, filter);
-    // user && fetchUserCartData(user, dispatch);
+    user && fetchUserCartData(user, dispatch);
     if (showOrderForm) {
       dispatch({ type: "SHOW_ORDER_FORM", showOrderForm: false });
     }

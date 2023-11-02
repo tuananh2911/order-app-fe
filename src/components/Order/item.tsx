@@ -9,7 +9,7 @@ const OrderItem = ({ item }: { item: cartItem }) => {
   const price = foodItem?.price || 0;
   const formattedPrice = formatNumber(price);
   return (
-    <div className="w-full p-1 px-2 rounded-lg backgroundColor hover:shadow-md flex items-center justify-between gap-2 cursor-pointer" style={{ backgroundColor: '#877c6d' }}>
+    <div className="w-full p-1 px-2 rounded-lg backgroundColor hover:shadow-md flex items-center justify-between gap-2 cursor-pointer" style={{ backgroundColor: '#EBEBEB' }}>
       <div className=" flex items-center  gap-2 px-2">
         <img
           src={foodItem?.imageUrl}
@@ -24,8 +24,8 @@ const OrderItem = ({ item }: { item: cartItem }) => {
         </div>
       </div>
       <div className="group flex items-center gap-2  cursor-pointer px-5" >
-        <p className="text-sm text-gray-50 w-5 h-5 backgroundColor rounded-sm bg-cartBg flex items-center justify-center cursor-default" style={{ backgroundColor: 'black' }}>
-          {qty}
+        <p className="text-sm text-base w-5 h-5 backgroundColor rounded-sm bg-cartBg flex items-center justify-center cursor-default" style={{ backgroundColor: 'EBEBEB' }}>
+          x{qty}
         </p>
       </div>
     </div>

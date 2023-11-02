@@ -53,12 +53,12 @@ export const addToOrder = (
   calculateOrderTotal(cartItems, foodItems, currentOrderTotal, dispatch);
 };
 
-// export const fetchUserCartData = async (user: any, dispatch: any) => {
-//   if (user) {
-//   } else {
-//     localStorage.setItem("cartItems", "undefined");
-//   }
-// };
+export const fetchUserCartData = async (user: any, dispatch: any) => {
+  if (user) {
+  } else {
+    localStorage.setItem("cartItems", "undefined");
+  }
+};
 
 
 export const fetchFoodData = async (dispatch: any, categoryId: string) => {

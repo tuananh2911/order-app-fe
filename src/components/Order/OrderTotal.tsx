@@ -7,7 +7,7 @@ const OrderTotal = ({ checkoutState }: { checkoutState: any }) => {
   const [orderStatus, setOrderStatus] = useState("Đang hoàn thành");
   const statusColor = orderStatus === "Đang hoàn thành" ? "yellow" : orderStatus === "Đã hoàn thành" ? "#1EFF34" : "white";
   return (
-    <div className='w-full mt-2 md:mt-0 flex-1 rounded backgroundColor rounded-t-[2rem] px-8 py-2 flex flex-col items-center justify-evenly' style={{ backgroundColor: '#877c6d ' }}>
+    <div className='w-full mt-2 md:mt-0 flex-1 rounded backgroundColor rounded-t-[2rem] px-8 py-2 flex flex-col items-center justify-evenly' style={{ backgroundColor: '#EBEBEB ' }}>
       <div >
         <div className="flex text-base ">
           <span>Ngày đặt: <span>{orderDate}</span></span>

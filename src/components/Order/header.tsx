@@ -14,32 +14,17 @@ const OrderHeader = () => {
         <MdOutlineKeyboardBackspace className="text-textColor text-2xl " />
       </motion.div>
 
-      <div className="flex items-center justify-center gap-2 p-1 px-2 my-2">
+      <div className="flex items-center justify-center gap-2 p-1 px- my-2">
         Order Detail
       </div>
 
-      {user ? (
-        <motion.p
-          whileTap={{ scale: 0.9 }}
-          whileHover={{ scale: 0.9 }}
-          // onClick={() => emptyCart(orderItems, foodItems, dispatch)}
-          className="flex items-center justify-center gap-2 p-1 px-2 my-2 bg-cardOverlay rounded-md hover:shadow-sm text-textColor text-base"
-        >
-          
-          {/* clear 
-          <BiRefresh className="text-cartNumBg" /> */}
-        </motion.p>
-      ) : (
-        <Link to={`/login`} onClick={() => hideOrderform(dispatch) } >
-          <motion.p
-            whileTap={{ scale: 0.9 }}
-            whileHover={{ scale: 0.9 }}
-            className="flex items-center justify-center gap-2 p-1 px-2 my-2 bg-cardOverlay rounded-md hover:shadow-sm text-textColor text-base"
-          >
-            <MdLogin className="text-cartNumBg" onClick={() => hideMobileNav(dispatch)}/> Login to cart
-          </motion.p>
-        </Link>
-      )}
+
+      <motion.p
+        whileTap={{ scale: 0.9 }}
+        whileHover={{ scale: 0.9 }}
+        className="flex items-center justify-center gap-2 p-1 px-2 my-2 bg-cardOverlay rounded-md hover:shadow-sm text-textColor text-base"
+      >
+      </motion.p>
     </div>
   );
 };
