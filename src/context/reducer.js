@@ -62,7 +62,6 @@ const reducer = (state, action) => {
             localStorage.setItem('foodItems', JSON.stringify(updatedFoodItems));
             return {
                 ...state,
-                previousFoodItems: state.foodItems,
                 foodItems: currentFood.concat(updatedFoodItems),
             };
         case "SET_LOADING":
