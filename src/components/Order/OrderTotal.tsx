@@ -1,13 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useStateValue } from '../../context/StateProvider';
 import { formatNumber } from "../../utils/functions";
+import io from 'socket.io-client';
 
 const OrderTotal = ({ checkoutState }: { checkoutState: any }) => {
   const [{ orderTotal }] = useStateValue();
-  const [orderDate, setOrderDate] = useState(new Date().toLocaleDateString());
   const [orderStatus, setOrderStatus] = useState("Đang hoàn thành");
   const statusColor = orderStatus === "Đang hoàn thành" ? "#FBBC05" : orderStatus === "Đã hoàn thành" ? "#1EFF34" : "white";
+  const socket = io('YOUR_SOCKET_SERVER_URL');
+  useEffect(() => {
+    socket.on('update_status_order', (data) => {
+      setOrderStatus(data.status);
+    });
 
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
   return (
     <>
       <div className='w-full mt-2 md:mt-0 flex-1 rounded backgroundColor rounded-t-[2rem] px-4 py-2 flex flex-col items-center justify-evenly' style={{ backgroundColor: '#EBEBEB' }}>
