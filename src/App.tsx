@@ -22,6 +22,7 @@ import { useEffect, useState } from "react";
 import { useStateValue } from "./context/StateProvider";
 import Order from "./components/Order";
 import QRNotification from "./Pages/Error/QRNotification";
+import WelcomeModal from "./components/WelcomeForm";
 
 function App() {
   const [
@@ -39,7 +40,7 @@ function App() {
     },
     dispatch,
   ] = useStateValue();
-
+  const [isWelcomeModalVisible, setIsWelcomeModalVisible] = useState(false);
   useEffect(() => {
     fetchFoodData(dispatch, filter);
     user && fetchUserCartData(user, dispatch);
@@ -48,6 +49,19 @@ function App() {
     }
   }, [filter]);
 
+  useEffect(() => {
+    const userName = localStorage.getItem('userName');
+    if (!userName) {
+      setIsWelcomeModalVisible(true); // Hiển thị modal chào mừng nếu không có tên người dùng được lưu
+    } else {
+      // Nếu tên người dùng đã có, cập nhật state và không hiển thị modal
+      dispatch({
+        type: 'SET_USER',
+        user: userName,
+      });
+      setIsWelcomeModalVisible(false);
+    }
+  }, [dispatch]);
   useEffect(() => {
     foodItems &&
       cartItems.length > 0 &&
@@ -65,6 +79,15 @@ function App() {
       </Routes>
     );
   }
+
+  const handleWelcomeModalClose = (name: any) => {
+    localStorage.setItem('userName', name);
+    setIsWelcomeModalVisible(false);
+    dispatch({
+      type: 'SET_USER',
+      user: name,
+    });
+  };
   return (
     <AnimatePresence exitBeforeEnter>
       <ToastContainer />
@@ -82,12 +105,14 @@ function App() {
         >
           {/* Routes */}
           <Routes>
+          
             <Route path="/*" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/menu" element={<Menu />} />
             <Route path="/services" element={<Services />} />
+            
           </Routes>
-
+          {isWelcomeModalVisible && <WelcomeModal onClose={handleWelcomeModalClose} />}
           {!(adminMode && isAdmin(user)) && <Footer />}
         </main>
       </div>
