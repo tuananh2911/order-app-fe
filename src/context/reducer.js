@@ -21,6 +21,7 @@ export const actionTypes = {
     ADD_TO_CART: 'ADD_TO_CART',
     SET_FILTER: 'SET_FILTER',
     CLEAR_CART: 'CLEAR_CART',
+    SET_TABLE_ID: 'SET_TABLE_ID'
 }
 
 export const saveCartItemsToLocalStorage = (cartItems) => {
@@ -180,6 +181,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 filter: action.filter,
+            };
+        case actionTypes.SET_TABLE_ID:
+            return {
+                ...state,
+                tableId: action.tableId,
             };
         default:
             return state;

@@ -15,6 +15,7 @@ import {
   fetchUserCartData,
   isAdmin,
 } from "./utils/functions";
+import { nanoid } from 'nanoid';
 import { AnimatePresence } from "framer-motion";
 import Contract from "./components/Contact";
 import { ToastContainer } from "react-toastify";
@@ -52,9 +53,8 @@ function App() {
   useEffect(() => {
     const userName = localStorage.getItem('userName');
     if (!userName) {
-      setIsWelcomeModalVisible(true); // Hiển thị modal chào mừng nếu không có tên người dùng được lưu
+      setIsWelcomeModalVisible(true);
     } else {
-      // Nếu tên người dùng đã có, cập nhật state và không hiển thị modal
       dispatch({
         type: 'SET_USER',
         user: userName,
@@ -81,13 +81,31 @@ function App() {
   }
 
   const handleWelcomeModalClose = (name: any) => {
+    const existingUserId = localStorage.getItem('userId');
+
+    if (existingUserId) {
+      dispatch({
+        type: 'SET_USER',
+        user: name,
+      });
+    } else {
+      const randomPart = nanoid();
+      const userId = `${Date.now()}-${randomPart}`;
+      localStorage.setItem('userId', userId);
+      dispatch({
+        type: 'SET_USER',
+        user: name,
+      });
+      const tableId = localStorage.getItem('tableId');
+      dispatch({
+        type: 'SET_TABLE_ID',
+        tableId: tableId,
+      });
+    }
     localStorage.setItem('userName', name);
     setIsWelcomeModalVisible(false);
-    dispatch({
-      type: 'SET_USER',
-      user: name,
-    });
   };
+
   return (
     <AnimatePresence exitBeforeEnter>
       <ToastContainer />
@@ -105,12 +123,12 @@ function App() {
         >
           {/* Routes */}
           <Routes>
-          
+
             <Route path="/*" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/menu" element={<Menu />} />
             <Route path="/services" element={<Services />} />
-            
+
           </Routes>
           {isWelcomeModalVisible && <WelcomeModal onClose={handleWelcomeModalClose} />}
           {!(adminMode && isAdmin(user)) && <Footer />}

@@ -2,9 +2,9 @@ import { motion } from 'framer-motion'
 import { useStateValue } from '../../context/StateProvider';
 import { hideOrderform, addToOrder } from "../../utils/functions";
 const CartTotal = ({ checkoutState }: { checkoutState: any }) => {
-  const [{ cartItems, cartTotal, orderTotal, showOrderForm, foodItems }, dispatch] = useStateValue();
+  const [{ cartItems, cartTotal, orderTotal, showOrderForm, foodItems, userId, tableId }, dispatch] = useStateValue();
   const handleToggleOrder = () => {
-    addToOrder(cartItems, foodItems, orderTotal, dispatch);
+    addToOrder(cartItems, foodItems, orderTotal, dispatch, userId, tableId);
     dispatch({
       type: "CLEAR_CART",
     });

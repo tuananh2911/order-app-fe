@@ -1,6 +1,4 @@
 import { PrevNext as PrevNextButtons, Title } from "..";
-
-import Container from "../../Container";
 import { FilterFood } from "../../../utils/filters";
 import { useEffect, useState } from "react";
 import { useStateValue } from "../../../context/StateProvider";
@@ -8,10 +6,10 @@ import { fetchFoodPopular } from "../../../utils/functions";
 import { SingleFoodItem } from "../../FoodItem";
 import { FoodItem } from "../../../../types";
 
-const Fruits = () => {
+function Fruits({ userName, tableId }: { userName: any, tableId: any }) {
   const fruits = FilterFood("chicken");
   const [scrollValue, setScrollValue] = useState(0);
-  const [{ foodItems, foodItemsPopular, loading  }, dispatch] = useStateValue();
+  const [{ foodItems, foodItemsPopular, loading }, dispatch] = useStateValue();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,7 +23,18 @@ const Fruits = () => {
     return <div>Loading...</div>;
   }
   return (
-    <section className="w-full my-5">
+    <section className="w-full my-">
+      {userName && (
+        <div className="text-base flex items-center flex-col justify-center">
+          <div>
+            Hello,{' '}
+            <span className="text-blue-500 font-semibold">{userName}</span>!
+          </div>
+          <div className="text-dark">Bạn đang ngồi ở bàn - {' '}
+            <span className="text-base font-semibold">{tableId}</span>
+          </div>
+        </div>
+      )}
       <div className="w-full flex items-center justify-between mb-4">
         <Title title="Best Seller" />
         <PrevNextButtons
@@ -44,6 +53,6 @@ const Fruits = () => {
       </div>
     </section>
   );
-};
+}
 
 export default Fruits;
