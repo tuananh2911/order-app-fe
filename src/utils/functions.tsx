@@ -38,6 +38,8 @@ export const addToOrder = (
   foodItems: FoodItem[],
   currentOrderTotal: string,
   dispatch: any,
+  userId: string,
+  tableId: string,
 ) => {
   if (!cartItems || cartItems.length === 0) {
     toast.error("No items in the cart to add to order", {
@@ -51,15 +53,57 @@ export const addToOrder = (
     orderItems: cartItems,
   });
   calculateOrderTotal(cartItems, foodItems, currentOrderTotal, dispatch);
+  sendOrderToAPI(userId, tableId, cartItems);
 };
 
 export const fetchUserCartData = async (user: any, dispatch: any) => {
   if (user) {
+    const userId = localStorage.getItem("userId");
+    const tableId = localStorage.getItem("tableId");
   } else {
     localStorage.setItem("cartItems", "undefined");
   }
 };
 
+export const sendOrderToAPI = async (
+  userId: string,
+  tableId: string,
+  orderItems: cartItem[]
+) => {
+  const apiUrl = `https://vtda.online/api/v1/orders?tableId=${tableId}`;
+
+  const orderData = {
+    userId: userId,
+    items: orderItems.map((item) => ({
+      fid: item.fid,
+      qty: item.qty,
+    })),
+  };
+
+  try {
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(orderData),
+    });
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    const data = await response.json();
+
+    console.log("Order placed successfully:", data);
+  } catch (error) {
+    console.error("Error placing order:", error);
+
+    toast.error("Error placing order. Please try again.", {
+      icon: <MdShoppingBasket className="text-2xl text-cartNumBg" />,
+    });
+  }
+};
 
 export const fetchFoodData = async (dispatch: any, categoryId: string) => {
   const apiUrl = `https://vtda.online/api/v1/foods/${categoryId}`;
@@ -213,7 +257,6 @@ export const calculateOrderTotal = (
   dispatch: any
 ) => {
   let total = parseFloat(currentOrderTotal);
-  console.log("currentOrderTotal", currentOrderTotal);
   newOrderItems.forEach((item: cartItem) => {
     const foodItem = getFoodyById(foodItems, item.fid);
     total += item.qty * parseFloat(foodItem?.price || "0");
