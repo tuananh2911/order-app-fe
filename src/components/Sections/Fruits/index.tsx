@@ -1,5 +1,4 @@
 import { PrevNext as PrevNextButtons, Title } from "..";
-import { FilterFood } from "../../../utils/filters";
 import { useEffect, useState } from "react";
 import { useStateValue } from "../../../context/StateProvider";
 import { fetchFoodPopular } from "../../../utils/functions";
@@ -7,7 +6,7 @@ import { SingleFoodItem } from "../../FoodItem";
 import { FoodItem } from "../../../../types";
 
 function Fruits({ userName, tableId }: { userName: any, tableId: any }) {
-  const fruits = FilterFood("chicken");
+
   const [scrollValue, setScrollValue] = useState(0);
   const [{ foodItems, foodItemsPopular, loading }, dispatch] = useStateValue();
 
