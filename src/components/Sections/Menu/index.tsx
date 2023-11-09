@@ -33,10 +33,10 @@ const Menu = ({ title }: { title?: string }) => {
     <section className="w-full my-5">
       <Filters filter={filter} setFilter={setFilter} />
       <Container
-        className="bg-containerbg "
-        col
         scrollOffset={scrollValue}
-        items={FilterFood(filter)}
+        col
+        items={foodItems}
+        className="bg-containerbg "
       />
     </section>
   );

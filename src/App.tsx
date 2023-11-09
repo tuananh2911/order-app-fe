@@ -43,7 +43,7 @@ function App() {
   ] = useStateValue();
   const [isWelcomeModalVisible, setIsWelcomeModalVisible] = useState(false);
   useEffect(() => {
-    fetchFoodData(dispatch, filter);
+    // fetchFoodData(dispatch, filter);
     user && fetchUserCartData(user, dispatch);
     if (showOrderForm) {
       dispatch({ type: "SHOW_ORDER_FORM", showOrderForm: false });
