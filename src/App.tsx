@@ -67,6 +67,7 @@ function App() {
       cartItems.length > 0 &&
       calculateCartTotal(cartItems, foodItems, dispatch);
   }, [cartItems, foodItems, dispatch]);
+  
   const token = localStorage.getItem("tableId");
   const navigate = useNavigate();
   if (!token) {
@@ -82,29 +83,33 @@ function App() {
 
   const handleWelcomeModalClose = (name: any) => {
     const existingCustomerId = localStorage.getItem('customerId');
-
+    let customerId;
+  
     if (existingCustomerId) {
-      dispatch({
-        type: 'SET_USER',
-        user: name,
-      });
+      customerId = existingCustomerId;
     } else {
       const randomPart = nanoid(6);
-      const customerId = `${randomPart}`;
+      customerId = `${randomPart}`;
       localStorage.setItem('customerId', customerId);
-      dispatch({
-        type: 'SET_USER',
-        user: name,
-      });
-      const tableId = localStorage.getItem('tableId');
-      dispatch({
-        type: 'SET_TABLE_ID',
-        tableId: tableId,
-      });
     }
+  
+    const tableId = localStorage.getItem('tableId') || 'Unknown Table';
+  
+    // Cập nhật state với thông tin người dùng mới và tableId
+    dispatch({
+      type: 'SET_USER_INFO',
+      userInfo: {
+        name: name,
+        customerId: customerId,
+        tableId: tableId,
+      },
+    });
+  
     localStorage.setItem('userName', name);
     setIsWelcomeModalVisible(false);
+    window.location.reload();
   };
+  
 
   return (
     <AnimatePresence exitBeforeEnter>
@@ -126,6 +131,7 @@ function App() {
 
             <Route path="/*" element={<Home />} />
             <Route path="/about" element={<About />} />
+            <Route path="/qr-notification" element={<QRNotification />} />
             <Route path="/menu" element={<Menu />} />
             <Route path="/services" element={<Services />} />
 
