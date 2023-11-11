@@ -10,7 +10,7 @@ import { fetchCategory, fetchFoodData } from "../../../utils/functions";
 const Menu = ({ title }: { title?: string }) => {
   const [scrollValue, setScrollValue] = useState(0);
   const [{ foodItems, categories }, dispatch] = useStateValue();
-  const [filter, setFilter] = useState<string>("");
+  const [filter, setFilter] = useState<string>('');
 
   useEffect(() => {
     fetchCategory(dispatch);
@@ -35,7 +35,7 @@ const Menu = ({ title }: { title?: string }) => {
       <Container
         scrollOffset={scrollValue}
         col
-        items={foodItems}
+        items={FilterFood(filter)}
         className="bg-containerbg "
       />
     </section>

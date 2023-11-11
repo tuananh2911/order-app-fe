@@ -1,16 +1,12 @@
 import { Avatar, Logo } from "../Assets";
 import { Link } from "react-router-dom";
-
-import DropDown from "./DropDown";
 import { HiOutlineMenuAlt2 } from "react-icons/hi";
 import MobileNav from "./mobile-nav";
 import Navigations from "./Navigations";
-import { RiArrowDropDownLine } from "react-icons/ri";
 import { motion } from "framer-motion";
-import { hideMobileNav } from "../../utils/functions";
 import { useState } from "react";
 import { useStateValue } from "../../context/StateProvider";
-import { MdOutlineRestaurantMenu, MdShoppingBasket } from "react-icons/md";
+import { MdShoppingBasket } from "react-icons/md";
 const Header = () => {
   //
   // const firebaseAuth = getAuth(app);
@@ -25,10 +21,6 @@ const Header = () => {
     });
   };
   const handleToggleMobile = () => {
-    // dispatch({
-    //   type: "TOGGLE_MOBILE_NAV",
-    //   showMobileNav: !showMobileNav,
-    // });
     setIsOpenMobileNav(!isOpenMobileNav);
   };
 
