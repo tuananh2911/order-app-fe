@@ -81,17 +81,17 @@ function App() {
   }
 
   const handleWelcomeModalClose = (name: any) => {
-    const existingUserId = localStorage.getItem('userId');
+    const existingCustomerId = localStorage.getItem('customerId');
 
-    if (existingUserId) {
+    if (existingCustomerId) {
       dispatch({
         type: 'SET_USER',
         user: name,
       });
     } else {
-      const randomPart = nanoid();
-      const userId = `${Date.now()}-${randomPart}`;
-      localStorage.setItem('userId', userId);
+      const randomPart = nanoid(6);
+      const customerId = `${randomPart}`;
+      localStorage.setItem('customerId', customerId);
       dispatch({
         type: 'SET_USER',
         user: name,

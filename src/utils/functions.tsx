@@ -38,8 +38,8 @@ export const addToOrder = (
   foodItems: FoodItem[],
   currentOrderTotal: string,
   dispatch: any,
-  userId: string,
-  tableId: string,
+  customerId: any,
+  tableId: any,
 ) => {
   if (!cartItems || cartItems.length === 0) {
     toast.error("No items in the cart to add to order", {
@@ -53,27 +53,23 @@ export const addToOrder = (
     orderItems: cartItems,
   });
   calculateOrderTotal(cartItems, foodItems, currentOrderTotal, dispatch);
-  sendOrderToAPI(userId, tableId, cartItems);
-};
-
-export const fetchUserCartData = async (user: any, dispatch: any) => {
-  if (user) {
-    const userId = localStorage.getItem("userId");
-    const tableId = localStorage.getItem("tableId");
-  } else {
-    localStorage.setItem("cartItems", "undefined");
-  }
+  tableId = localStorage.getItem('tableId');
+  customerId = localStorage.getItem('customerId');
+  console.log("tableId addtoorder", tableId);
+  sendOrderToAPI(customerId, tableId, cartItems);
 };
 
 export const sendOrderToAPI = async (
-  userId: string,
-  tableId: string,
+  customerId: string,
+  tableId: any,
   orderItems: cartItem[]
 ) => {
-  const apiUrl = `https://vtda.online/api/v1/orders?tableId=${tableId}`;
+  console.log("tableId sendto", tableId);
+  const apiUrl = `https://vtda.online/api/v1/orders?tableId=${tableId}&customerId=${customerId}`;
+
 
   const orderData = {
-    userId: userId,
+    customerId: customerId,
     items: orderItems.map((item) => ({
       fid: item.fid,
       qty: item.qty,
@@ -102,6 +98,15 @@ export const sendOrderToAPI = async (
     toast.error("Error placing order. Please try again.", {
       icon: <MdShoppingBasket className="text-2xl text-cartNumBg" />,
     });
+  }
+};
+
+export const fetchUserCartData = async (user: any, dispatch: any) => {
+  if (user) {
+    const customerId = localStorage.getItem("customerId");
+    const tableId = localStorage.getItem("tableId");
+  } else {
+    localStorage.setItem("cartItems", "undefined");
   }
 };
 
