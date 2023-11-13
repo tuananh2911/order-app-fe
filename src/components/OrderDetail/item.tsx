@@ -4,8 +4,8 @@ import { useStateValue } from "../../context/StateProvider";
 
 const OrderItem = ({ item }: { item: cartItem }) => {
   const [{ foodItems, cartItems, orderItems }, dispatch] = useStateValue();
-  const { id, fid, qty } = item;
-  const foodItem = getFoodyById(foodItems, fid);
+  const { id, foodId, quantity } = item;
+  const foodItem = getFoodyById(foodItems, foodId);
   const price = foodItem?.price || 0;
   const formattedPrice = formatNumber(price);
   return (
@@ -26,7 +26,7 @@ const OrderItem = ({ item }: { item: cartItem }) => {
         </div>
         <div className="group flex items-center gap-2  cursor-pointer px-5" >
           <p className="text-sm text-base w-15 h-5 backgroundColor rounded-sm bg-cartBg flex items-center justify-center cursor-default" style={{ backgroundColor: 'white' }}>
-            SL: {qty}
+            SL: {quantity}
           </p>
         </div>
 

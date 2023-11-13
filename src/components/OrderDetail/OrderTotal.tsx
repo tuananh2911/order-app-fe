@@ -4,19 +4,21 @@ import { formatNumber } from "../../utils/functions";
 import io from 'socket.io-client';
 
 const OrderTotal = () => {
-  const [{ orderTotal, orderStatus }] = useStateValue();
-  // const [orderStatus, setOrderStatus] = useState("Đang hoàn thành");
+  const [{ orderTotal }, dispatch] = useStateValue();
+  const [orderStatus, setOrderStatus] = useState("Đang hoàn thành"); // Giả sử trạng thái ban đầu là "Đang chờ xử lý"
   const statusColor = orderStatus === "Đang hoàn thành" ? "#FBBC05" : orderStatus === "Đã hoàn thành" ? "#1EFF34" : "white";
-  // const socket = io('YOUR_SOCKET_SERVER_URL');
-  // useEffect(() => {
-  //   socket.on('update_status_order', (data) => {
-  //     setOrderStatus(data.status);
-  //   });
 
-  //   return () => {
-  //     socket.disconnect();
-  //   };
-  // }, []);
+  const socket = io('vtda.online'); // Thay thế YOUR_SOCKET_SERVER_URL bằng URL thực tế của server socket của bạn
+  useEffect(() => {
+    socket.on('update_status_order', (data) => {
+      console.log('data',data)
+      setOrderStatus(data.status);
+    });
+
+    return () => {
+      socket.disconnect();
+    };
+  }, [socket]);
   return (
     <>
       <div className='w-full mt-2 md:mt-0 flex-1 rounded backgroundColor rounded-t-[2rem] px-4 py-2 flex flex-col items-center justify-evenly' style={{ backgroundColor: '#EBEBEB' }}>
