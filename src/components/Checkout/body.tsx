@@ -16,7 +16,7 @@ const Body = ({ action }: { action: any }) => {
   const [loading, setLoading] = useState(false);
 
   const completePayment = () => {
-    if(!checkoutData) return toast.error("Complete payment info")
+    if (!checkoutData) return toast.error("Complete payment info")
     setLoading(true);
     setTimeout(async () => {
       setLoading(false);
