@@ -3,7 +3,7 @@ import { useStateValue } from '../../context/StateProvider';
 import { formatNumber } from "../../utils/functions";
 import io from 'socket.io-client';
 
-const OrderTotal = ({ checkoutState }: { checkoutState: any }) => {
+const OrderTotal = () => {
   const [{ orderTotal }] = useStateValue();
   const [orderStatus, setOrderStatus] = useState("Đang hoàn thành");
   const statusColor = orderStatus === "Đang hoàn thành" ? "#FBBC05" : orderStatus === "Đã hoàn thành" ? "#1EFF34" : "white";

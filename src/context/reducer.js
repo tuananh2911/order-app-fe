@@ -8,12 +8,13 @@ export const actionTypes = {
     SET_ORDERITEMS: 'SET_ORDERITEMS',
     SET_CART_TOTAL: 'SET_CART_TOTAL',
     SET_ORDER_TOTAL: 'SET_ORDER_TOTAL',
+    SET_LIST_ORDERS: 'SET_LIST_ORDERS',
     SET_ADMIN_MODE: 'SET_ADMIN_MODE',
     SET_USERS: 'SET_USERS',
     UPDATE_USER: 'UPDATE_USER',
     SET_PAYMENT_METHOD: 'SET_PAYMENT_METHOD',
     UPDATE_CHECKOUT_DATA: 'UPDATE_CHECKOUT_DATA',
-    TOGGLE_CONTRACT_FORM: 'TOGGLE_CONTRACT_FORM',
+    TOGGLE_ORDER_DETAIL: 'TOGGLE_ORDER_DETAIL',
     TOGGLE_ORDER_FORM: 'TOGGLE_ORDER_FORM',
     TOGGLE_ORDER: 'TOGGLE_ORDER',
     TOGGLE_MOBILE_NAV: 'TOGGLE_MOBILE_NAV',
@@ -53,6 +54,11 @@ const reducer = (state, action) => {
                 ...state,
                 user: action.user,
             };
+        case actionTypes.SET_LIST_ORDERS:
+            return {
+                ...state,
+                listOrders: action.listOrders,
+            }
         case actionTypes.SET_FOOD_ITEMS:
             const newFoodItems = action.foodItems;
             const currentFood = state.foodItems ? [...state.foodItems] : [];
@@ -152,15 +158,10 @@ const reducer = (state, action) => {
                 ...state,
                 checkoutData: action.checkoutData
             };
-        case actionTypes.TOGGLE_CONTACT_FORM:
+        case actionTypes.TOGGLE_ORDER_DETAIL:
             return {
                 ...state,
-                showContactForm: action.showContactForm
-            };
-        case actionTypes.TOGGLE_CONTRACT_FORM:
-            return {
-                ...state,
-                showContractForm: action.showContractForm
+                showOrderDetail: action.showOrderDetail,
             };
         case actionTypes.TOGGLE_ORDER_FORM:
             return {

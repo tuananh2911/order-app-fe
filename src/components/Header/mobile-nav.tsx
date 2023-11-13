@@ -11,7 +11,7 @@ const MobileNav = ({
   isOpen: boolean;
   setIsOpen: any;
 }) => {
-  const [{ showContractForm, showOrderForm, showCart, cartItems }, dispatch] = useStateValue();
+  const [{ showContractForm, showOrderForm, showOrderDetail, showCart, cartItems }, dispatch] = useStateValue();
   const handleToggleCart = () => {
     dispatch({
       type: "TOGGLE_CART",
@@ -19,9 +19,10 @@ const MobileNav = ({
     });
   };
   const handleToggleOrder = () => {
+
     dispatch({
-      type: "TOGGLE_ORDER_FORM",
-      showOrderForm: !showOrderForm,
+      type: "TOGGLE_ORDER_DETAIL",
+      showOrderDetail: !showOrderDetail,
     });
   };
 

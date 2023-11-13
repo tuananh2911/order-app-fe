@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useStateValue } from "../../context/StateProvider";
 
 const Navigations = ({ direction }: { direction?: string }) => {
-  const [{ showOrder, showOrderForm, cartItems }, dispatch] = useStateValue();
+  const [{ showOrder, showOrderForm, showOrderDetail, cartItems }, dispatch] = useStateValue();
   const handleToggleCart = () => {
     dispatch({
       type: "TOGGLE_CART",
@@ -13,9 +13,9 @@ const Navigations = ({ direction }: { direction?: string }) => {
   };
   const handleToggleOrder = () => {
     dispatch({
-      type: "TOGGLE_ORDER_FORM",
-      showOrderForm: !showOrderForm,
-      showOrder: true,
+      type: "TOGGLE_ORDER_DETAIL",
+      showOrderDetail: !showOrderDetail,
+      // showOrder: true,
     });
   };
   return (

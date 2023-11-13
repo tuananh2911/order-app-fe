@@ -1,5 +1,5 @@
-import OrderItem from './item'
-import OrderTotal from './OrderTotal'
+import OrderItem from './item';
+import OrderTotal from './OrderTotal';
 import { useStateValue } from '../../context/StateProvider';
 
 const OrderBody = ({ action }: { action: any }) => {
@@ -13,7 +13,7 @@ const OrderBody = ({ action }: { action: any }) => {
           })
         }
       </div>
-      <OrderTotal checkoutState={action} />
+      <OrderTotal />
     </div>
   )
 }

@@ -191,6 +191,25 @@ export const fetchFoodPopular = async (dispatch: any) => {
   }
 };
 
+export const fetchOrder = async (dispatch: any) => {
+  const apiUrl = 'https://vtda.online/api/v1/orders';
+
+  try {
+    const response = await fetch(apiUrl);
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    const data = await response.json();
+    dispatch({
+      type: "SET_LIST_ORDERS",
+      listOrders: data,
+    })
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 // Update Cart Item Quantity
 export const updateCartItemQty = async (
@@ -307,6 +326,14 @@ export const hideOrderform = (dispatch: any) => {
   dispatch({
     type: "TOGGLE_ORDER_FORM",
     showOrderForm: !true,
+  });
+};
+
+// Hide Order Detail
+export const hideOrderDetail = (dispatch: any) => {
+  dispatch({
+    type: "TOGGLE_ORDER_DETAIL",
+    showOrderDetail: !true,
   });
 };
 
