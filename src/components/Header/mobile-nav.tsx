@@ -18,11 +18,15 @@ const MobileNav = ({
       showCart: !showCart,
     });
   };
+  // const handleToggleOrder = () => {
+  //   dispatch({
+  //     type: "TOGGLE_ORDER_DETAIL",
+  //     showOrderDetail: !showOrderDetail,
+  //   });
   const handleToggleOrder = () => {
-
     dispatch({
-      type: "TOGGLE_ORDER_DETAIL",
-      showOrderDetail: !showOrderDetail,
+      type: "TOGGLE_ORDER_FORM",
+      showOrderForm: !showOrderForm,
     });
   };
 

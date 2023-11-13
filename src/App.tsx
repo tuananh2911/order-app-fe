@@ -21,6 +21,7 @@ import { ToastContainer } from "react-toastify";
 import { useEffect, useState } from "react";
 import { useStateValue } from "./context/StateProvider";
 import OrderDetail from "./components/OrderDetail";
+import Order from "./components/Order";
 import QRNotification from "./Pages/Error/QRNotification";
 import WelcomeModal from "./components/WelcomeForm";
 
@@ -47,6 +48,9 @@ function App() {
 
     if (showOrderDetail) {
       dispatch({ type: "SHOW_ORDER_DETAIL", showOrderDetail: false });
+    }
+    if (showOrderForm) {
+      dispatch({ type: "SHOW_ORDER_FORM", showOrderForm: false });
     }
   }, [filter]);
 
@@ -116,7 +120,7 @@ function App() {
       <ToastContainer />
       <div className="w-screen h-auto min-h-[100vh] flex flex-col bg-primary">
         {showCart && <Cart />}
-        {/* {showOrderForm && <Order />} */}
+        {showOrderForm && <Order />}
         {showOrderDetail && <OrderDetail />}
         {showMobileNav && <Header />}
         {!(adminMode && isAdmin(user)) && <Header />}

@@ -8,7 +8,6 @@ const CartTotal = ({ checkoutState }: { checkoutState: any }) => {
     dispatch({
       type: "CLEAR_CART",
     });
-
     dispatch({
       type: "TOGGLE_ORDER_DETAIL",
       showOrderDetail: !showOrderDetail,

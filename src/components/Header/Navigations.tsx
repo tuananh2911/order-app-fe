@@ -11,10 +11,17 @@ const Navigations = ({ direction }: { direction?: string }) => {
       showCart: true,
     });
   };
+  // const handleToggleOrder = () => {
+  //   dispatch({
+  //     type: "TOGGLE_ORDER_DETAIL",
+  //     showOrderDetail: !showOrderDetail,
+  //     // showOrder: true,
+  //   });
+  // };
   const handleToggleOrder = () => {
     dispatch({
-      type: "TOGGLE_ORDER_DETAIL",
-      showOrderDetail: !showOrderDetail,
+      type: "TOGGLE_ORDER_FORM",
+      showOrderForm: !showOrderForm,
       // showOrder: true,
     });
   };
