@@ -4,10 +4,10 @@ export type foodItemStatic = {
   desc: string;
   price: string;
   imgSrc: string;
-}
+};
 export type foodItemsStatic = {
   items: foodItemStatic[];
-}
+};
 export type FoodItem = {
   id: number;
   name: string;
@@ -23,24 +23,24 @@ export type FoodItem = {
 
 export type FoodItems = {
   items: FoodItem[];
-}
+};
 
 export type FoodCategory = {
   id: number;
   name: string;
   urlParam: string;
-  imageUrl: string
-}
+  imageUrl: string;
+};
 
 export type cartItem = {
   id: number;
-  fid: number;
-  qty: number;
-}
+  foodId: number;
+  quantity: number;
+};
 
 export type cartItems = {
-  items: cartItem[]
-}
+  items: cartItem[];
+};
 
 export type User = {
   uid: string;
@@ -49,6 +49,5 @@ export type User = {
   phoneNumber?: string;
   providerId: string;
   photoURL?: string;
-
-}
+};
 export type FoodCategories = FoodCategory[];

@@ -15,7 +15,7 @@ import {
   fetchUserCartData,
   isAdmin,
 } from "./utils/functions";
-import { nanoid } from 'nanoid';
+import { customAlphabet, nanoid } from 'nanoid';
 import { AnimatePresence } from "framer-motion";
 import Contract from "./components/Contact";
 import { ToastContainer } from "react-toastify";
@@ -88,7 +88,8 @@ function App() {
     if (existingCustomerId) {
       customerId = existingCustomerId;
     } else {
-      const randomPart = nanoid(6);
+      const nanoId = customAlphabet('123456789',6)
+      const randomPart = nanoId();
       customerId = `${randomPart}`;
       localStorage.setItem('customerId', customerId);
     }

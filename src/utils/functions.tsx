@@ -1,5 +1,10 @@
 import { FoodItem, cartItem, FoodCategories, FoodCategory } from "../../types";
-import { GiFruitTree, GiChickenOven, GiBeerBottle, GiBowlOfRice } from "react-icons/gi";
+import {
+  GiFruitTree,
+  GiChickenOven,
+  GiBeerBottle,
+  GiBowlOfRice,
+} from "react-icons/gi";
 import { MdOutlineIcecream } from "react-icons/md";
 import { FaFish } from "react-icons/fa";
 import { Categories, setCategories } from "./categories";
@@ -12,9 +17,9 @@ export const addToCart = async (
   cartItems: cartItem[],
   foodItems: FoodItem[],
   fid: number,
-  dispatch: any,
+  dispatch: any
 ) => {
-  if (cartItems.some((item: cartItem) => item["fid"] === fid)) {
+  if (cartItems.some((item: cartItem) => item["foodId"] === fid)) {
     toast.error("Item already in cart", {
       icon: <MdShoppingBasket className="text-2xl text-cartNumBg" />,
       toastId: "itemAlreadyInCart",
@@ -22,8 +27,8 @@ export const addToCart = async (
   } else {
     const data: cartItem = {
       id: Date.now(),
-      fid: fid,
-      qty: 1,
+      foodId: fid,
+      quantity: 1,
     };
     dispatch({
       type: "SET_CARTITEMS",
@@ -39,7 +44,7 @@ export const addToOrder = (
   currentOrderTotal: string,
   dispatch: any,
   customerId: any,
-  tableId: any,
+  tableId: any
 ) => {
   if (!cartItems || cartItems.length === 0) {
     toast.error("No items in the cart to add to order", {
@@ -53,8 +58,8 @@ export const addToOrder = (
     orderItems: cartItems,
   });
   calculateOrderTotal(cartItems, foodItems, currentOrderTotal, dispatch);
-  tableId = localStorage.getItem('tableId');
-  customerId = localStorage.getItem('customerId');
+  tableId = localStorage.getItem("tableId");
+  customerId = localStorage.getItem("customerId");
   console.log("tableId addtoorder", tableId);
   sendOrderToAPI(customerId, tableId, cartItems);
 };
@@ -67,12 +72,10 @@ export const sendOrderToAPI = async (
   console.log("tableId sendto", tableId);
   const apiUrl = `https://vtda.online/api/v1/orders?tableId=${tableId}&customerId=${customerId}`;
 
-
   const orderData = {
-    customerId: customerId,
     items: orderItems.map((item) => ({
-      fid: item.fid,
-      qty: item.qty,
+      foodId: item.foodId,
+      quantity: item.quantity,
     })),
   };
 
@@ -82,7 +85,7 @@ export const sendOrderToAPI = async (
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(orderData),
+      body: JSON.stringify(orderData.items),
     });
 
     if (!response.ok) {
@@ -132,7 +135,7 @@ export const getFoodyById = (menu: FoodItem[], fid: number) => {
 };
 
 export const fetchCategory = async (dispatch: any) => {
-  const apiUrl = 'https://vtda.online/api/v1/categories';
+  const apiUrl = "https://vtda.online/api/v1/categories";
 
   try {
     const response = await fetch(apiUrl);
@@ -142,14 +145,16 @@ export const fetchCategory = async (dispatch: any) => {
     }
 
     const data = await response.json();
-    const mappedCategories: FoodCategories = data.map((category: FoodCategory) => {
-      return {
-        id: category.id,
-        name: category.name,
-        urlParam: category.id,
-        imageUrl: category.imageUrl,
-      };
-    });
+    const mappedCategories: FoodCategories = data.map(
+      (category: FoodCategory) => {
+        return {
+          id: category.id,
+          name: category.name,
+          urlParam: category.id,
+          imageUrl: category.imageUrl,
+        };
+      }
+    );
 
     setCategories(mappedCategories);
     dispatch({
@@ -161,7 +166,7 @@ export const fetchCategory = async (dispatch: any) => {
   }
 };
 export const fetchFoodPopular = async (dispatch: any) => {
-  const apiUrl = 'https://vtda.online/api/v1/foods/popular';
+  const apiUrl = "https://vtda.online/api/v1/foods/popular";
 
   try {
     const response = await fetch(apiUrl);
@@ -191,7 +196,6 @@ export const fetchFoodPopular = async (dispatch: any) => {
   }
 };
 
-
 // Update Cart Item Quantity
 export const updateCartItemQty = async (
   cartItems: cartItem[],
@@ -204,7 +208,7 @@ export const updateCartItemQty = async (
     (cartItem: cartItem) => cartItem.id === item.id
   );
   if (index !== -1) {
-    cartItems[index].qty += val;
+    cartItems[index].quantity += val;
     dispatch({
       type: "SET_CARTITEMS",
       cartItems: cartItems,
@@ -245,8 +249,8 @@ export const calculateCartTotal = (
 ) => {
   let total = 0;
   cartItems.forEach((item: cartItem) => {
-    const foodItem = getFoodyById(foodItems, item.fid);
-    total += item.qty * parseFloat(foodItem?.price || "0");
+    const foodItem = getFoodyById(foodItems, item.foodId);
+    total += item.quantity * parseFloat(foodItem?.price || "0");
   });
   const formattedTotal = formatNumber(total);
   dispatch({
@@ -263,8 +267,8 @@ export const calculateOrderTotal = (
 ) => {
   let total = parseFloat(currentOrderTotal);
   newOrderItems.forEach((item: cartItem) => {
-    const foodItem = getFoodyById(foodItems, item.fid);
-    total += item.qty * parseFloat(foodItem?.price || "0");
+    const foodItem = getFoodyById(foodItems, item.foodId);
+    total += item.quantity * parseFloat(foodItem?.price || "0");
   });
   if (typeof total === "number") {
     dispatch({
@@ -300,7 +304,6 @@ export const hideCart = (dispatch: any) => {
     showCart: !true,
   });
 };
-
 
 // Hide Order
 export const hideOrderform = (dispatch: any) => {
@@ -346,7 +349,6 @@ export const shuffleItems = (items: any) => {
   return items;
 };
 
-
 export const ToggleAdminMode = (dispatch: any, state: boolean) => {
   dispatch({
     type: "SET_ADMIN_MODE",
@@ -362,5 +364,3 @@ export const isAdmin = (user: any) => {
     user?.email == "admin@test.com";
   return isAdmin;
 };
-
-

@@ -3,19 +3,27 @@ import { BiMinus, BiPlus } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import { motion } from "framer-motion";
 import { cartItem } from "../../../types";
-import { deleteCartItem, formatNumber, getFoodyById, updateCartItemQty } from "../../utils/functions";
+import {
+  deleteCartItem,
+  formatNumber,
+  getFoodyById,
+  updateCartItemQty,
+} from "../../utils/functions";
 import { useStateValue } from "../../context/StateProvider";
 
 const CartItem = ({ item }: { item: cartItem }) => {
   const [{ foodItems, cartItems }, dispatch] = useStateValue();
-  const { id, fid, qty } = item;
+  const { id, foodId: fid, quantity: qty } = item;
   const foodItem = getFoodyById(foodItems, fid);
   const price = foodItem?.price || 0;
   const formattedPrice = formatNumber(price);
 
   return (
     <>
-      <div className="w-full p-1 px-2 rounded-lg backgroundColor hover:shadow-md flex items-center justify-between gap-2 cursor-pointer " style={{ backgroundColor: 'white ' }}>
+      <div
+        className="w-full p-1 px-2 rounded-lg backgroundColor hover:shadow-md flex items-center justify-between gap-2 cursor-pointer "
+        style={{ backgroundColor: "white " }}
+      >
         <div className=" flex items-center gap-2">
           <img
             src={foodItem?.imageUrl}
@@ -35,19 +43,29 @@ const CartItem = ({ item }: { item: cartItem }) => {
           <motion.div
             className="w-6 h-6 rounded-full flex items-center justify-center backgroundColor"
             whileTap={{ scale: 0.75 }}
-            onClick={qty > 1 ? () => updateCartItemQty(cartItems, foodItems, item, dispatch, -1) : () => { }}
-            style={{ backgroundColor: '#EBEBEB' }}
+            onClick={
+              qty > 1
+                ? () =>
+                    updateCartItemQty(cartItems, foodItems, item, dispatch, -1)
+                : () => {}
+            }
+            style={{ backgroundColor: "#EBEBEB" }}
           >
             <BiMinus className="text-base" />
           </motion.div>
-          <p className="text-lg font-semibold w-6 h-6 ml-2 mr-2 rounded-sm backgroundColor flex items-center justify-center cursor-default" style={{ backgroundColor: 'white' }}>
+          <p
+            className="text-lg font-semibold w-6 h-6 ml-2 mr-2 rounded-sm backgroundColor flex items-center justify-center cursor-default"
+            style={{ backgroundColor: "white" }}
+          >
             {qty}
           </p>
           <motion.div
             className="w-6 h-6 rounded-full flex items-center justify-center backgroundColor"
             whileTap={{ scale: 0.75 }}
-            onClick={() => updateCartItemQty(cartItems, foodItems, item, dispatch, 1)}
-            style={{ backgroundColor: '#EBEBEB' }}
+            onClick={() =>
+              updateCartItemQty(cartItems, foodItems, item, dispatch, 1)
+            }
+            style={{ backgroundColor: "#EBEBEB" }}
           >
             <BiPlus className="text-base" />
           </motion.div>
