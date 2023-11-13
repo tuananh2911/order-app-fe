@@ -4,18 +4,25 @@ import { motion } from "framer-motion";
 import { useStateValue } from "../../context/StateProvider";
 
 const Navigations = ({ direction }: { direction?: string }) => {
-  const [{ showOrder, showOrderForm, cartItems }, dispatch] = useStateValue();
+  const [{ showOrder, showOrderForm, showOrderDetail, cartItems }, dispatch] = useStateValue();
   const handleToggleCart = () => {
     dispatch({
       type: "TOGGLE_CART",
       showCart: true,
     });
   };
+  // const handleToggleOrder = () => {
+  //   dispatch({
+  //     type: "TOGGLE_ORDER_DETAIL",
+  //     showOrderDetail: !showOrderDetail,
+  //     // showOrder: true,
+  //   });
+  // };
   const handleToggleOrder = () => {
     dispatch({
       type: "TOGGLE_ORDER_FORM",
       showOrderForm: !showOrderForm,
-      showOrder: true,
+      // showOrder: true,
     });
   };
   return (

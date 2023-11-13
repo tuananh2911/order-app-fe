@@ -17,10 +17,10 @@ import {
 } from "./utils/functions";
 import { customAlphabet, nanoid } from 'nanoid';
 import { AnimatePresence } from "framer-motion";
-import Contract from "./components/Contact";
 import { ToastContainer } from "react-toastify";
 import { useEffect, useState } from "react";
 import { useStateValue } from "./context/StateProvider";
+import OrderDetail from "./components/OrderDetail";
 import Order from "./components/Order";
 import QRNotification from "./Pages/Error/QRNotification";
 import WelcomeModal from "./components/WelcomeForm";
@@ -31,7 +31,7 @@ function App() {
       showCart,
       showMobileNav,
       showOrderForm,
-      showOrder,
+      showOrderDetail,
       user,
       foodItems,
       categories,
@@ -45,6 +45,10 @@ function App() {
   useEffect(() => {
     // fetchFoodData(dispatch, filter);
     user && fetchUserCartData(user, dispatch);
+
+    if (showOrderDetail) {
+      dispatch({ type: "SHOW_ORDER_DETAIL", showOrderDetail: false });
+    }
     if (showOrderForm) {
       dispatch({ type: "SHOW_ORDER_FORM", showOrderForm: false });
     }
@@ -67,7 +71,7 @@ function App() {
       cartItems.length > 0 &&
       calculateCartTotal(cartItems, foodItems, dispatch);
   }, [cartItems, foodItems, dispatch]);
-  
+
   const token = localStorage.getItem("tableId");
   const navigate = useNavigate();
   if (!token) {
@@ -84,7 +88,7 @@ function App() {
   const handleWelcomeModalClose = (name: any) => {
     const existingCustomerId = localStorage.getItem('customerId');
     let customerId;
-  
+
     if (existingCustomerId) {
       customerId = existingCustomerId;
     } else {
@@ -93,9 +97,9 @@ function App() {
       customerId = `${randomPart}`;
       localStorage.setItem('customerId', customerId);
     }
-  
+
     const tableId = localStorage.getItem('tableId') || 'Unknown Table';
-  
+
     // Cập nhật state với thông tin người dùng mới và tableId
     dispatch({
       type: 'SET_USER_INFO',
@@ -105,12 +109,12 @@ function App() {
         tableId: tableId,
       },
     });
-  
+
     localStorage.setItem('userName', name);
     setIsWelcomeModalVisible(false);
     window.location.reload();
   };
-  
+
 
   return (
     <AnimatePresence exitBeforeEnter>
@@ -118,7 +122,7 @@ function App() {
       <div className="w-screen h-auto min-h-[100vh] flex flex-col bg-primary">
         {showCart && <Cart />}
         {showOrderForm && <Order />}
-        {showOrder && <Order />}
+        {showOrderDetail && <OrderDetail />}
         {showMobileNav && <Header />}
         {!(adminMode && isAdmin(user)) && <Header />}
         <main

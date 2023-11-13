@@ -11,13 +11,18 @@ const MobileNav = ({
   isOpen: boolean;
   setIsOpen: any;
 }) => {
-  const [{ showContractForm, showOrderForm, showCart, cartItems }, dispatch] = useStateValue();
+  const [{ showContractForm, showOrderForm, showOrderDetail, showCart, cartItems }, dispatch] = useStateValue();
   const handleToggleCart = () => {
     dispatch({
       type: "TOGGLE_CART",
       showCart: !showCart,
     });
   };
+  // const handleToggleOrder = () => {
+  //   dispatch({
+  //     type: "TOGGLE_ORDER_DETAIL",
+  //     showOrderDetail: !showOrderDetail,
+  //   });
   const handleToggleOrder = () => {
     dispatch({
       type: "TOGGLE_ORDER_FORM",

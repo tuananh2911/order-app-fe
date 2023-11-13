@@ -313,6 +313,14 @@ export const hideOrderform = (dispatch: any) => {
   });
 };
 
+// Hide Order Detail
+export const hideOrderDetail = (dispatch: any) => {
+  dispatch({
+    type: "TOGGLE_ORDER_DETAIL",
+    showOrderDetail: !true,
+  });
+};
+
 // Hide Mobile Nav
 export const hideMobileNav = (dispatch: any) => {
   dispatch({
