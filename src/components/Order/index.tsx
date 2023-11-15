@@ -5,10 +5,16 @@ import { motion } from "framer-motion";
 import EmptyOrder from "../EmptyOrder";
 import NotFound from "../NotFound";
 import Checkout from "../Checkout";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import {
+    fetchOrder,
+} from "../../utils/functions";
 const Order = () => {
-    const [{ cartItems, orderItems }] = useStateValue();
+    const [{ cartItems, orderItems }, dispatch] = useStateValue();
     const [checkoutOpen, setCheckoutOpen] = useState(false);
+    useEffect(() => {
+        fetchOrder(dispatch);
+    }, [dispatch]);
     return (
         <>
             {checkoutOpen ? (

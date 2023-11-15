@@ -22,6 +22,7 @@ export const actionTypes = {
     ADD_TO_CART: 'ADD_TO_CART',
     SET_FILTER: 'SET_FILTER',
     CLEAR_CART: 'CLEAR_CART',
+    CLEAR_ORDER: 'CLEAR_ORDER',
     SET_TABLE_ID: 'SET_TABLE_ID'
 }
 
@@ -96,6 +97,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 cartItems: [],
+            };
+        case actionTypes.CLEAR_ORDER:
+            return {
+                ...state,
+                orderItems: [],
             };
         case actionTypes.SET_CARTITEMS:
             const updatedCart = mergeCartItems(state.cartItems, action.cartItems);

@@ -1,17 +1,8 @@
 import { FoodItem, cartItem, FoodCategories, FoodCategory } from "../../types";
-import {
-  GiFruitTree,
-  GiChickenOven,
-  GiBeerBottle,
-  GiBowlOfRice,
-} from "react-icons/gi";
-import { MdOutlineIcecream } from "react-icons/md";
-import { FaFish } from "react-icons/fa";
 import { Categories, setCategories } from "./categories";
 
 import { MdShoppingBasket } from "react-icons/md";
 import { toast } from "react-toastify";
-import { motion } from "framer-motion";
 
 export const addToCart = async (
   cartItems: cartItem[],
@@ -196,7 +187,45 @@ export const fetchFoodPopular = async (dispatch: any) => {
   }
 };
 
+export const fetchOrder = async (dispatch: any) => {
+  const apiUrl = `https://vtda.online/api/v1/orders`;
 
+  try {
+    const response = await fetch(apiUrl);
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    const data = await response.json();
+    dispatch({
+      type: "SET_LIST_ORDERS",
+      listOrders: data,
+    })
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchOrderDetail = async (dispatch: any, customerId: string) => {
+  const apiUrl = `https://vtda.online/api/v1/orders/customerId=${customerId}`;
+
+  try {
+    const response = await fetch(apiUrl);
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    const data = await response.json();
+    dispatch({
+      type: "SET_ORDERITEMS",
+      orderItems: data,
+    })
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 // Update Cart Item Quantity
 export const updateCartItemQty = async (
