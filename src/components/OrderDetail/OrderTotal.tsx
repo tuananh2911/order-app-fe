@@ -5,13 +5,13 @@ import io from 'socket.io-client';
 
 const OrderTotal = () => {
   const [{ orderTotal }, dispatch] = useStateValue();
-  const [orderStatus, setOrderStatus] = useState("Đang hoàn thành"); // Giả sử trạng thái ban đầu là "Đang chờ xử lý"
+  const [orderStatus, setOrderStatus] = useState("Đang hoàn thành");
   const statusColor = orderStatus === "Đang hoàn thành" ? "#FBBC05" : orderStatus === "Đã hoàn thành" ? "#1EFF34" : "white";
 
-  const socket = io('vtda.online'); // Thay thế YOUR_SOCKET_SERVER_URL bằng URL thực tế của server socket của bạn
+  const socket = io('vtda.online');
   useEffect(() => {
     socket.on('update_status_order', (data) => {
-      console.log('data',data)
+      console.log('data', data)
       setOrderStatus(data.status);
     });
 
